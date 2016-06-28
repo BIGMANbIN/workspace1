@@ -47,7 +47,7 @@ public class MyBatisIterfaceTestCase {
 
         userMapper.save(user);
 
-        logger.debug("User:{}",user);
+        logger.debug("UserID:{}",user.getId());
 
 
         sqlSession.commit();
@@ -57,7 +57,7 @@ public class MyBatisIterfaceTestCase {
     }
 
     @Test
-    public void testUpadate(){
+    public void testUpdate(){
         SqlSession sqlSession = MyBatisUtil.getSqlSession();
 
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
@@ -110,12 +110,44 @@ public class MyBatisIterfaceTestCase {
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 
         Map<String,Object> param = Maps.newHashMap();
-        param.put("name","hanhan");
+        param.put("name","jim");
         param.put("password","123123");
 
         User user = userMapper.findByMap(param);
 
         logger.debug("{}",user);
+
+        sqlSession.close();
+    }
+
+    @Test
+    public void  testFindByParams(){
+
+        SqlSession sqlSession = MyBatisUtil.getSqlSession();
+
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+
+        User user = userMapper.findByParams("jim","123123");
+
+        logger.debug("user:{}",user);
+
+        sqlSession.close();
+
+    }
+
+    @Test
+    public void testFindByQueryParam(){
+        SqlSession sqlSession = MyBatisUtil.getSqlSession();
+
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+
+        Map<String,Object> queryParam = Maps.newHashMap();
+
+        queryParam.put("username","tom");
+        queryParam.put("password",123456);
+        queryParam.put("email","123@123.com");
+
+        userMapper.findByQueryParam(queryParam);
 
         sqlSession.close();
     }

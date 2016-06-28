@@ -3,8 +3,26 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.it.mapper.UserMapper">
+<mapper namespace="com.it.mapper.NodeMapper">
 
+    <!--
+        id: 类似方法名字
+        parameterType: 方法传入参数的类型
+        resultType：方法的返回类型(需要写pojo的完全限定名=包名+类名)
+     -->
+    <insert id="batchSave" parameterType="List">
+        INSERT INTO t_node(name) VALUES
+        <foreach collection="list" item="node" separator=",">
+            (#{node.name})
+        </foreach>
+    </insert>
+
+    <select id="findByIds" parameterType="list" resultType="Node">
+      SELECT * FROM t_node WHERE id IN
+      <foreach collection="list" item="id" separator="," open="(" close=")">
+          #{id}
+      </foreach>
+    </select>
 
 
 </mapper>

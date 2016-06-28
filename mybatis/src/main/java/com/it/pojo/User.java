@@ -7,6 +7,8 @@ public class User {
     private String name;
     private String address;
 
+
+
     public Integer getId() {
         return id;
     }

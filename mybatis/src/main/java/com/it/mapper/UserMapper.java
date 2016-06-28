@@ -21,7 +21,13 @@ public interface UserMapper {
 
     List<User> findByQueryParam(Map<String,Object> queryParam);
 
-    User findByParam(@Param("name") String name,@Param("pwd") String password);
 
+    //1.封装成对象->UserMapper中sql语句->Test中测试
+
+    //(加注解@param("别名")或者用paramXXX表示参数
+    User findByParams(@Param("name") String name,@Param("pwd") String password);
+
+    //2.封装成map->Usermapper中sql语句->Test中测试
     User findByMap(Map<String,Object> param);
+
 }

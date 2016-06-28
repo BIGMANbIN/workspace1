@@ -8,6 +8,7 @@
 <!--注册别名-->
     <typeAliases>
         <typeAlias type="com.it.pojo.User" alias="User"/>
+        <typeAlias type="com.it.pojo.Node" alias="Node"/>
     </typeAliases>
 
 
@@ -34,9 +35,10 @@
         </environment>
     </environments>
 
-    <!--加载文件-->
+    <!--加载mapper文件-->
     <mappers>
         <mapper resource="mapper/UserMapper.xml"/>
+        <mapper resource="mapper/NodeMapper.xml"/>
     </mappers>
 
 
