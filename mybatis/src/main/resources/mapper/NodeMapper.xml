@@ -5,12 +5,18 @@
 
 <mapper namespace="com.it.mapper.NodeMapper">
 
+    <cache/>
+    <!--
+        <cache size="2048" readOnly="false" eviction="FIFO" flushInterval="60000"/>
+    -->
     <!--
         id: 类似方法名字
         parameterType: 方法传入参数的类型
         resultType：方法的返回类型(需要写pojo的完全限定名=包名+类名)
      -->
-    <insert id="batchSave" parameterType="List">
+
+    <!--flushCache=false 执行后不刷新缓存-->
+    <insert id="batchSave" parameterType="List" flushCache="false">
         INSERT INTO t_node(name) VALUES
         <foreach collection="list" item="node" separator=",">
             (#{node.name})
@@ -23,6 +29,8 @@
           #{id}
       </foreach>
     </select>
+
+    <!--userCache=false 该语句不被缓存-->
     <select id="findById" resultType="com.it.pojo.Node">
         SELECT * FROM t_node WHERE id = #{id}
     </select>

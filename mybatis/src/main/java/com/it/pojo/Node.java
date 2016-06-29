@@ -1,7 +1,11 @@
 package com.it.pojo;
 
 
-public class Node {
+import java.io.Serializable;
+
+public class Node implements Serializable {
+
+    private static final long serialVersionUID = -8590322053425634013L;
 
     private Integer id;
     private String name;
