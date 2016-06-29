@@ -9,11 +9,12 @@
     <typeAliases>
         <typeAlias type="com.it.pojo.User" alias="User"/>
         <typeAlias type="com.it.pojo.Node" alias="Node"/>
+        <typeAlias type="com.it.pojo.Topic" alias="Topic"/>
     </typeAliases>
 
 
     <!--环境：开发|测试|线上-->
-    <environments default="dev">
+    <environments default="test">
         <environment id="dev">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
@@ -28,7 +29,7 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql///zbd"/>
+                <property name="url" value="jdbc:mysql:///forum"/>
                 <property name="username" value="root"/>
                 <property name="password" value="920926"/>
             </dataSource>
@@ -39,6 +40,7 @@
     <mappers>
         <mapper resource="mapper/UserMapper.xml"/>
         <mapper resource="mapper/NodeMapper.xml"/>
+        <mapper resource="mapper/TopicMapper.xml"/>
     </mappers>
 
 

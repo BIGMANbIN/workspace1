@@ -53,6 +53,23 @@
 
     <select id="findByQueryParam" parameterType="map" resultType="User">
        SELECT * FROM t_user
+        <where>
+            <if test="username != null and username != ''">
+                username=#{username}
+            </if>
+                <choose>
+                    <when test="password != null and password != ''">
+                        password=#{password}
+                    </when>
+                    <when test="email != null and email != ''">
+                        email=#{emali}
+                    </when>
+                </choose>
+        </where>
+
+
+
+       <!--
        <where>
         <if test="username != null and username != ''">
             username = #{username}
@@ -64,5 +81,11 @@
             and email = #{email}
         </if>
        </where>
+       -->
     </select>
+
+    <select id="findByPage" resultType="User">
+        SELECT * FROM t_work limit ${start},${size}
+    </select>
+
 </mapper>        

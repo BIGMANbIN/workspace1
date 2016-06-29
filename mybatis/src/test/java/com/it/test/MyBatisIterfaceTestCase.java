@@ -2,6 +2,7 @@ package com.it.test;
 
 
 import com.google.common.collect.Maps;
+import com.it.mapper.TopicMapper;
 import com.it.mapper.UserMapper;
 import com.it.pojo.User;
 import com.it.util.MyBatisUtil;
@@ -143,12 +144,30 @@ public class MyBatisIterfaceTestCase {
 
         Map<String,Object> queryParam = Maps.newHashMap();
 
-        queryParam.put("username","tom");
-        queryParam.put("password",123456);
+        //queryParam.put("username","tom");
+        queryParam.put("password","123456");
         queryParam.put("email","123@123.com");
 
         userMapper.findByQueryParam(queryParam);
 
         sqlSession.close();
     }
+
+    @Test
+    public void testFindByPage(){
+
+        SqlSession sqlSession = MyBatisUtil.getSqlSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+
+        List<User> userList = userMapper.findByPage("0","15");
+
+        for (User user : userList) {
+            logger.debug("{}",user);
+        }
+
+        sqlSession.close();
+
+    }
+
+
 }

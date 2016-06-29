@@ -21,6 +21,7 @@ public interface UserMapper {
 
     List<User> findByQueryParam(Map<String,Object> queryParam);
 
+    List<User> delQueryParam(Map<String,Object> query);
 
     //1.封装成对象->UserMapper中sql语句->Test中测试
 
@@ -29,5 +30,7 @@ public interface UserMapper {
 
     //2.封装成map->Usermapper中sql语句->Test中测试
     User findByMap(Map<String,Object> param);
+
+    List<User> findByPage(@Param("start")String start, @Param("size")String Size);
 
 }

@@ -6,6 +6,7 @@ public class Node {
     private Integer id;
     private String name;
     private String password;
+    private String nodename;
 
     public Node() {
     }
@@ -38,12 +39,22 @@ public class Node {
         this.password = password;
     }
 
+    public String getNodename() {
+        return nodename;
+    }
+
+    public void setNodename(String nodename) {
+        this.nodename = nodename;
+    }
+
     @Override
     public String toString() {
         return "Node{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
+                ", nodename='" + nodename + '\'' +
                 '}';
     }
+
 }
