@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.it.mapper.NodeMapper;
 import com.it.pojo.Node;
 import com.it.util.MyBatisUtil;
+import org.apache.ibatis.jdbc.SQL;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -55,5 +56,42 @@ public class NodeMapperTestCase {
 
         sqlSession.close();
     }
+
+    @Test
+    public void testFindById(){
+
+        SqlSession sqlSession = MyBatisUtil.getSqlSession();
+
+        NodeMapper nodeMapper = sqlSession.getMapper(NodeMapper.class);
+
+        Node node = nodeMapper.findById(1);
+        node = nodeMapper.findById(1);
+        node = nodeMapper.findById(1);
+        node = nodeMapper.findById(1);
+        node = nodeMapper.findById(1);
+        node = nodeMapper.findById(1);
+
+        logger.debug("{}",node);
+
+        sqlSession.close();
+
+//----------------------------------------------------------------
+        SqlSession sqlSession1 = MyBatisUtil.getSqlSession();
+
+        NodeMapper nodeMapper1 = sqlSession1.getMapper(NodeMapper.class);
+
+        Node node1 = nodeMapper1.findById(1);
+        node = nodeMapper1.findById(1);
+        node = nodeMapper1.findById(1);
+        node = nodeMapper1.findById(1);
+        node = nodeMapper1.findById(1);
+        node = nodeMapper1.findById(1);
+
+        logger.debug("{}",node);
+
+        sqlSession.close();
+
+    }
+
 
 }

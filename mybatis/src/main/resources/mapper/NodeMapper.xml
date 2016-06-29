@@ -23,6 +23,9 @@
           #{id}
       </foreach>
     </select>
+    <select id="findById" resultType="com.it.pojo.Node">
+        SELECT * FROM t_node WHERE id = #{id}
+    </select>
 
 
 </mapper>
