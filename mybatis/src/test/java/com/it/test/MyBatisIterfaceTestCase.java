@@ -4,6 +4,7 @@ package com.it.test;
 import com.google.common.collect.Maps;
 import com.it.mapper.TopicMapper;
 import com.it.mapper.UserMapper;
+import com.it.pojo.Tag;
 import com.it.pojo.User;
 import com.it.util.MyBatisUtil;
 import junit.framework.Assert;
@@ -28,7 +29,10 @@ public class MyBatisIterfaceTestCase {
 
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 
-        User user = userMapper.findById(1);
+        User user = userMapper.findById(10);
+
+        List<Tag> tagList = user.getTagList();
+        logger.debug("Tag:{}", tagList);
 
         sqlSession.close();
         Assert.assertNotNull(user);

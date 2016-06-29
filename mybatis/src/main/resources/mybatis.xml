@@ -10,6 +10,7 @@
         <typeAlias type="com.it.pojo.User" alias="User"/>
         <typeAlias type="com.it.pojo.Node" alias="Node"/>
         <typeAlias type="com.it.pojo.Topic" alias="Topic"/>
+        <typeAlias type="com.it.pojo.Tag" alias="Tag"/>
     </typeAliases>
 
 

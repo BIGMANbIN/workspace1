@@ -1,6 +1,8 @@
 package com.it.pojo;
 
 
+import java.util.List;
+
 public class User {
 
     //private Integer id;
@@ -16,6 +18,9 @@ public class User {
     private String loginip;
     private String logintime;
     private String state;
+
+
+    private List<Tag> tagList;
 
 //    public Integer getId() {
 //        return id;
@@ -112,6 +117,14 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<Tag> getTagList() {
+        return tagList;
+    }
+
+    public void setTagList(List<Tag> tagList) {
+        this.tagList = tagList;
     }
 
     @Override
