@@ -3,6 +3,7 @@ package test;
 
 import com.it.dao.UserDaoImpl1;
 import com.it.dao.UserDaoImpl2;
+import com.it.service.BookService;
 import com.it.service.UserService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -19,7 +20,7 @@ public class SpringDemoTestCase {
     public void testSayHi() {
         ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 
-        UserService userService = (UserService) context.getBean("userService");
+       /* UserService userService = (UserService) context.getBean("userService");
         userService.sayHi();
 
         UserDaoImpl1 userDao1 = (UserDaoImpl1) context.getBean("userDao1");
@@ -29,9 +30,13 @@ public class SpringDemoTestCase {
 
         UserDaoImpl2 userDao2 = (UserDaoImpl2) context.getBean("userDao2");
 
-        userDao2.save();
+        userDao2.save();*/
 
+       /* BookService bookService = (BookService) context.getBean("bookService");
+        bookService.showBooks();
+        */
 
-
+        UserService userService = (UserService) context.getBean("userService");
+        userService.sayHello();
     }
 }
