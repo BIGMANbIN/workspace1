@@ -1,16 +1,27 @@
 package com.it.aop;
 
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
+
+import javax.inject.Named;
 
 /**
 *Aop通知类
 */
+
+@Named
+@Aspect
 public class MyAdvice {
+
+
+    @Pointcut("execution(* com.it.dao..*.*(..))")
+    public void pointcut() {}
 
     /**
      * 前置通知
      */
 
+    //@Before("pointcut()")
     public void beforeAdvice(){
         System.out.println("前置通知。。。。。。");
     }
@@ -18,6 +29,8 @@ public class MyAdvice {
     /**
      * 后置通知
      */
+
+    //@AfterReturning(pointcut = "pointcut()",returning = "result")
     public void afterReturningAdvice(Object result){
         System.out.println("后置通知。。。。。。");
 
@@ -26,6 +39,7 @@ public class MyAdvice {
     /**
      * 异常通知
      */
+    //@AfterThrowing(pointcut = "pointcut()",throwing = "e")
     public void exceptionAdvice(Exception e){
         System.out.println("异常通知。。。"+ e.getMessage());
     }
@@ -33,6 +47,7 @@ public class MyAdvice {
     /**
      *最终通知
      */
+    //@After("pointcut()")
     public void finallyAdvice(){
         System.out.println("最终通知。。。。");
     }
@@ -41,6 +56,8 @@ public class MyAdvice {
     /**
      * 环绕通知
      */
+
+    @Around("pointcut()")
     public Object AroundAdvice(ProceedingJoinPoint joinPoint) {
 
         Object object = null;
