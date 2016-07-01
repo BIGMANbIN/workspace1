@@ -1,9 +1,10 @@
 package com.it.pojo;
 
 
+import java.io.Serializable;
 import java.security.Timestamp;
 
-public class LoginLog {
+public class LoginLog implements Serializable{
 
     private Integer id;
     private Timestamp createtime;
