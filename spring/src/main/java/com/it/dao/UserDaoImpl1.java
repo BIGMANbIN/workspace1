@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @Named
-public class UserDaoImpl1 implements UserDao{
+public class UserDaoImpl1 implements UserDao {
 
     @Inject
     private JdbcTemplate jdbcTemplate;
@@ -23,7 +23,7 @@ public class UserDaoImpl1 implements UserDao{
     @Override
     public void add(User user) {
         String sql = "insert into t_user(username,password,email) values (?,?,?)";
-        jdbcTemplate.update(sql,user.getUsername(),user.getPassword(),user.getEmail());
+        jdbcTemplate.update(sql, user.getUsername(), user.getPassword(), user.getEmail());
 
     }
 
@@ -31,14 +31,14 @@ public class UserDaoImpl1 implements UserDao{
     public void del(Integer id) {
 
         String sql = "delete from t_user where id = ?";
-        jdbcTemplate.update(sql,id);
+        jdbcTemplate.update(sql, id);
     }
 
     @Override
     public void update(User user) {
 
         String sql = "update t_user set username = ?,password = ?,email = ? where id = ?";
-        jdbcTemplate.update(sql,user.getUsername(),user.getPassword(),user.getEmail(),user.getId());
+        jdbcTemplate.update(sql, user.getUsername(), user.getPassword(), user.getEmail(), user.getId());
 
     }
 
@@ -56,25 +56,25 @@ public class UserDaoImpl1 implements UserDao{
                 user.setEmail(resultSet.getString("email"));
                 return user;
             }
-        },id);
+        }, id);
     }
 
     @Override
     public List<User> findAll() {
         String sql = "select * from t_user";
-        return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(User.class));
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class));
     }
 
     @Override
     public User findByName(String username) {
         String sql = "select * from t_user where username = ? ";
 
-        return jdbcTemplate.queryForObject(sql,new BeanPropertyRowMapper<>(User.class),username);
+        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class), username);
     }
 
     @Override
     public Long count() {
         String sql = "select count(*) from t_user";
-        return jdbcTemplate.queryForObject(sql,new SingleColumnRowMapper<Long>());
+        return jdbcTemplate.queryForObject(sql, new SingleColumnRowMapper<Long>());
     }
 }

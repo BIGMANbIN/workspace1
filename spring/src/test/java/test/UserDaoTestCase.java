@@ -31,13 +31,13 @@ public class UserDaoTestCase {
     }
 
     @Test
-    public void testDel(){
+    public void testDel() {
         userDao.del(4);
 
     }
 
     @Test
-    public void testUpdate(){
+    public void testUpdate() {
         User user = userDao.findById(5);
         user.setUsername("张三");
         user.setPassword("123123123");
@@ -47,7 +47,7 @@ public class UserDaoTestCase {
     }
 
     @Test
-    public void testFindById(){
+    public void testFindById() {
 
         User user = userDao.findById(5);
         Assert.assertNotNull(user);
@@ -55,7 +55,7 @@ public class UserDaoTestCase {
     }
 
     @Test
-    public void testFindAll(){
+    public void testFindAll() {
         List<User> userList = userDao.findAll();
         Assert.assertNotNull(userList);
         System.out.println(userList);
@@ -63,7 +63,7 @@ public class UserDaoTestCase {
     }
 
     @Test
-    public void testFindByName(){
+    public void testFindByName() {
 
         User user = userDao.findByName("张三");
         Assert.assertNotNull(user);
@@ -71,8 +71,8 @@ public class UserDaoTestCase {
     }
 
     @Test
-    public void testCount(){
+    public void testCount() {
         Long count = userDao.count();
-        Assert.assertEquals(count.intValue(),4);
+        Assert.assertEquals(count.intValue(), 4);
     }
 }
