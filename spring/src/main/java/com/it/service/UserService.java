@@ -1,28 +1,35 @@
 package com.it.service;
 
 
-import com.it.dao.LoginDao;
-import com.it.dao.UserDao;
-import com.it.pojo.LoginLog;
+import com.it.mapper.UserMapper;
 import com.it.pojo.User;
-import com.it.util.EmailUtil;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-
-//业务层
-//1.验证登陆
-//2.记录登陆的时间和ip
-//3.给这个账号发邮件
-
-
 
 @Named
 @Transactional
 public class UserService {
 
     @Inject
+    private UserMapper userMapper;
+
+    public void add(User user) {
+        userMapper.add(user);
+    }
+
+    public User findUserById(Integer id) {
+        return userMapper.findById(id);
+
+    }
+
+
+//业务层
+//1.验证登陆
+//2.记录登陆的时间和ip
+//3.给这个账号发邮件
+   /* @Inject
     private UserDao userDao;
 
     @Inject
@@ -52,5 +59,5 @@ public class UserService {
             throw new RuntimeException("用户名或密码错误！");
         }
     }
-
+*/
 }

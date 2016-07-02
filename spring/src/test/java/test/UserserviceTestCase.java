@@ -1,7 +1,9 @@
 package test;
 
 
+import com.it.pojo.User;
 import com.it.service.UserService;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,8 +19,21 @@ public class UserServiceTestCase {
     private UserService userService;
 
     @Test
-    public void testLogin(){
-        userService.login("Tom","123456","100.168.1.233");
+    public void testAdd(){
+        User user = new User();
+        user.setUsername("guangzhou");
+        user.setPassword("123456789");
+        user.setEmail("hanhan@123.com");
+
+        userService.add(user);
+    }
+
+
+    @Test
+    public void testFindById(){
+        User user = userService.findUserById(2);
+        Assert.assertNotNull(user);
+        System.out.println(user);
     }
 
 }
