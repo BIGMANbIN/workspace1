@@ -5,13 +5,18 @@ import com.it.dao.LoginDao;
 import com.it.dao.UserDao;
 import com.it.pojo.LoginLog;
 import com.it.pojo.User;
+import com.it.util.EmailUtil;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+//业务层
+//1.验证登陆
+//2.记录登陆的时间和ip
+//3.给这个账号发邮件
 
-//验证登陆
+
 
 @Named
 @Transactional
@@ -41,6 +46,7 @@ public class UserService {
         if (user != null && user.getPassword().equals(password)){
             loginDao.save(new LoginLog(ip,user.getId()));
 
+            EmailUtil.sendEmail();
             return user;
         }else{
             throw new RuntimeException("用户名或密码错误！");

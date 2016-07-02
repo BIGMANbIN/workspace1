@@ -3,7 +3,7 @@ package com.it.util;
 
 public class EmailUtil {
 
-    public void sendEmail(){
+    public static void sendEmail(){
         throw new RuntimeException("Send Email exception...");
     }
 }

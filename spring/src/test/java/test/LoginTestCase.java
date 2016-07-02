@@ -20,7 +20,7 @@ public class LoginTestCase {
     public void testLogin() {
 
         LoginLog loginLog = new LoginLog();
-        loginLog.setIp("192.168.1.122");
+        loginLog.setIp("28.1.1.251");
         loginLog.setUserid(8);
 
         loginDao.save(loginLog);
