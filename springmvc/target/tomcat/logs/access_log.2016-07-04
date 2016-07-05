@@ -1,0 +1,8 @@
+0:0:0:0:0:0:0:1 - - [04/Jul/2016:22:26:15 +0800] "GET /users/avatar/upload HTTP/1.1" 200 283 http-bio-80-exec-1 2408
+0:0:0:0:0:0:0:1 - - [04/Jul/2016:22:26:30 +0800] "POST /users/avatar/upload HTTP/1.1" 302 - http-bio-80-exec-4 655
+0:0:0:0:0:0:0:1 - - [04/Jul/2016:22:26:30 +0800] "GET /users HTTP/1.1" 200 152 http-bio-80-exec-5 304
+0:0:0:0:0:0:0:1 - - [04/Jul/2016:22:26:34 +0800] "GET /home HTTP/1.1" 200 255 http-bio-80-exec-6 174
+0:0:0:0:0:0:0:1 - - [04/Jul/2016:22:26:34 +0800] "GET /static/img/1.jpg HTTP/1.1" 404 949 http-bio-80-exec-7 25
+0:0:0:0:0:0:0:1 - - [04/Jul/2016:22:32:20 +0800] "GET /home HTTP/1.1" 200 255 http-bio-80-exec-9 12
+0:0:0:0:0:0:0:1 - - [04/Jul/2016:22:32:21 +0800] "GET /static/css/bootstrap.min.css HTTP/1.1" 304 - http-bio-80-exec-10 81
+0:0:0:0:0:0:0:1 - - [04/Jul/2016:22:32:21 +0800] "GET /static/img/1.jpg HTTP/1.1" 200 63387 http-bio-80-exec-1 134
