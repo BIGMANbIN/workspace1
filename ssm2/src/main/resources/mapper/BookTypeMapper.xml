@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.it.mapper.BookTypeMapper">
+
+    <!--
+        id: 类似方法名字
+        parameterType: 方法传入参数的类型
+        resultType：方法的返回类型(需要写pojo的完全限定名=包名+类名)
+     -->
+
+    <select id="findAll" resultType="booktype">
+        SELECT * FROM t_booktype
+    </select>
+
+</mapper>
