@@ -5,6 +5,8 @@ import com.it.mapper.BookMapper;
 import com.it.mapper.BookTypeMapper;
 import com.it.mapper.PublisherMapper;
 import com.it.pojo.Book;
+import com.it.pojo.BookType;
+import com.it.pojo.Publisher;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
@@ -23,6 +25,14 @@ public class BookService {
     @Inject
     private PublisherMapper publisherMapper;
 
+
+    public List<BookType> findAllBookType(){
+        return bookTypeMapper.findAll();
+    }
+
+    public List<Publisher> findAllPublisher(){
+        return publisherMapper.findAll();
+    }
 
     public void saveBook(Book book) {
 

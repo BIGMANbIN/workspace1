@@ -10,6 +10,7 @@
         parameterType: 方法传入参数的类型
         resultType：方法的返回类型(需要写pojo的完全限定名=包名+类名)
      -->
+    <cache/>
 
     <select id="saveBook" parameterType="Book">
         INSERT INTO t_book(bookname,bookprice,bookauthor,booknum,typeid,pubid,bookpic)
@@ -17,7 +18,13 @@
     </select>
 
     <select id="findAllBook" resultType="Book">
-        SELECT * FROM t_book
+        SELECT t_book.*,
+        t_booktype.id AS 'bookType.id',t_booktype.booktype AS 'bookType.bookType',
+        t_publisher.id AS 'publisher.id',t_publisher.pubname AS 'publisher.pubname'
+        FROM t_book
+        INNER JOIN t_booktype ON t_book.typeid = t_booktype.id
+        INNER JOIN t_publisher ON t_book.pubid = t_publisher.id
+        ORDER BY t_book.id DESC
     </select>
 
     <select id="findBookById" resultType="Book">
