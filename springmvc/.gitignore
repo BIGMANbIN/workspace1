@@ -1,9 +1,0 @@
-# Created by .ignore support plugin (hsz.mobi)
-.gitignore
-.idea/
-springmvc.iml
-static
-target
-config.properties
-
-
