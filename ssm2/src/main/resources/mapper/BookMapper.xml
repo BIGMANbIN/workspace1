@@ -12,10 +12,10 @@
      -->
     <cache/>
 
-    <select id="saveBook" parameterType="Book">
+    <insert id="saveBook" parameterType="Book">
         INSERT INTO t_book(bookname,bookprice,bookauthor,booknum,typeid,pubid,bookpic)
         VALUES (#{bookname},#{bookprice},#{bookauthor},#{booknum},#{typeid},#{pubid},'')
-    </select>
+    </insert>
 
     <select id="findAllBook" resultType="Book">
         SELECT t_book.*,
@@ -31,13 +31,27 @@
         SELECT * FROM t_book WHERE id = #{id}
     </select>
 
-    <select id="delBook" parameterType="int">
+    <delete id="delBook" parameterType="int">
         DELETE FROM t_book WHERE id = #{id}
-    </select>
+    </delete>
 
-    <select id="updateBook" parameterType="Book">
+    <update id="updateBook" parameterType="Book">
         UPDATE t_book SET bookname=#{bookname},bookprice=#{bookprice},bookauthor=#{bookauthor},booknum=#{booknum},
         typeid=#{typeid},pubid=#{pubid},bookpic=#{bookpic} WHERE id=#{id}
+    </update>
+
+    <select id="count" resultType="long">
+        SELECT count(*) FROM t_book
     </select>
 
+    <select id="findByPage" resultType="Book">
+        SELECT t_book.*,
+        t_booktype.id AS 'bookType.id',t_booktype.booktype AS 'bookType.bookType',
+        t_publisher.id AS 'publisher.id',t_publisher.pubname AS 'publisher.pubname'
+        FROM t_book
+        INNER JOIN t_booktype ON t_book.typeid = t_booktype.id
+        INNER JOIN t_publisher ON t_book.pubid = t_publisher.id
+        ORDER BY t_book.id DESC
+        limit ${start},${size}
+    </select>
 </mapper>

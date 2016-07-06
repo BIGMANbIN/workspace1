@@ -16,7 +16,7 @@
         <div class="alert alert-success">${message}</div>
     </c:if>
 
-    <a href="/books/new" class="btn bg-success">添加书籍</a>
+    <a href="/books/new" class="btn btn-success">添加书籍</a>
 
     <table class="table">
         <thead>
@@ -33,7 +33,7 @@
 
         <tbody>
 
-        <c:forEach items="${bookList}" var="book">
+        <c:forEach items="${page.items}" var="book">
             <tr>
                 <td>${book.bookname}</td>
                 <td>${book.bookauthor}</td>
@@ -49,16 +49,29 @@
         </c:forEach>
         </tbody>
     </table>
+
+    <ul class="pagination pull-right" id="page"></ul>
 </div>
 
 <script src="/static/js/jquery-2.2.3.min.js"></script>
+<script src="/static/js/jquery.twbsPagination.min.js"></script>
 <script>
-    $(function(){
+    $(function () {
 
-        $(".delLink").click(function(){
+        $("#page").twbsPagination({
+            totalPages:${page.totalPages},
+            visiblePages: 10,
+            first: '首页',
+            prev: '上一页',
+            next: '下一页',
+            last: '末页',
+            href: '?p={{number}}'
+        });
+
+        $(".delLink").click(function () {
             var id = $(this).attr("rel");
-            if(confirm("确定删除吗?")){
-                window.location.href = "/books/"+id+"/del";
+            if (confirm("确定删除吗?")) {
+                window.location.href = "/books/" + id + "/del";
             }
         });
     })

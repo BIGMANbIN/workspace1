@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <label>出版社</label>
                     <select class="form-control" name="pubid">
-                        <c:forEach items="${pus}" var="publisher">
+                        <c:forEach items="${pubs}" var="publisher">
                             <option value="${publisher.id}">${publisher.pubname}</option>
                         </c:forEach>
                     </select>

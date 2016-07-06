@@ -7,6 +7,7 @@ import com.it.mapper.PublisherMapper;
 import com.it.pojo.Book;
 import com.it.pojo.BookType;
 import com.it.pojo.Publisher;
+import com.it.util.Page;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
@@ -44,6 +45,7 @@ public class BookService {
 
     }
 
+
     public Book findBookById(Integer id){
         return bookMapper.findBookById(id);
     }
@@ -56,4 +58,14 @@ public class BookService {
         bookMapper.updateBook(book);
     }
 
+    public Page<Book> findBookPge(Integer p) {
+
+        int totalSize = bookMapper.count().intValue();
+
+        Page<Book> page = new Page<>(p,5,totalSize);
+
+        List<Book> bookList = bookMapper.findByPage(page.getStart(),5);
+        page.setItems(bookList);
+        return page;
+    }
 }

@@ -1,8 +1,7 @@
-package test.Service;
+package com.it.service;
 
 
 import com.it.pojo.Book;
-import com.it.service.BookService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,7 +41,7 @@ public class BookServiceTestCase {
     public void testFindAllBook(){
 
         List<Book> bookList = bookService.findAllBook();
-        Assert.assertEquals(bookList.size(),30);
+        Assert.assertEquals(bookList.size(),33);
     }
 
     @Test
