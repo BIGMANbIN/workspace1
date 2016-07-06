@@ -15,6 +15,7 @@ import javax.inject.Named;
 
 import java.util.List;
 import java.util.Map;
+
 @Named
 @Transactional
 public class BookService {
@@ -27,11 +28,11 @@ public class BookService {
     private PublisherMapper publisherMapper;
 
 
-    public List<BookType> findAllBookType(){
+    public List<BookType> findAllBookType() {
         return bookTypeMapper.findAll();
     }
 
-    public List<Publisher> findAllPublisher(){
+    public List<Publisher> findAllPublisher() {
         return publisherMapper.findAll();
     }
 
@@ -46,28 +47,40 @@ public class BookService {
     }
 
 
-    public Book findBookById(Integer id){
+    public Book findBookById(Integer id) {
         return bookMapper.findBookById(id);
     }
 
-    public void delBook(Integer id){
+    public void delBook(Integer id) {
         bookMapper.delBook(id);
     }
 
-    public void updateBook(Book book){
+    public void updateBook(Book book) {
         bookMapper.updateBook(book);
     }
 
-    public Page<Book> findBookPge(Integer p,Map<String,Object> param) {
+    public Page<Book> findBookPge(Integer p, Map<String, Object> param) {
 
         int totalSize = bookMapper.countByParam(param).intValue();
 
-        Page<Book> page = new Page<>(p,5,totalSize);
+        Page<Book> page = new Page<>(p, 5, totalSize);
 
-        param.put("start",page.getStart());
-        param.put("size",5);
+        param.put("start", page.getStart());
+        param.put("size", 5);
         List<Book> bookList = bookMapper.findByParam(param);
         page.setItems(bookList);
         return page;
+    }
+
+    public List<Book> findByDtaTables(Map<String, Object> param) {
+        return bookMapper.findByDataTable(param);
+    }
+
+    public Long count() {
+        return bookMapper.count();
+    }
+
+    public Long countByKeyWord(String keyword) {
+        return bookMapper.countByKeyWord(keyword);
     }
 }

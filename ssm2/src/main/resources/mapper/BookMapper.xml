@@ -89,4 +89,29 @@
         ORDER by t_book.id DESC
         limit ${start},${size}
     </select>
+    <select id="findByDataTable" resultType="Book">
+        SELECT t_book.*,
+        t_booktype.id as 'bookType.id',t_booktype.booktype as 'bookType.bookType',
+        t_publisher.id as 'publisher.id',t_publisher.pubname as 'publisher.pubname'
+        FROM t_book
+        INNER JOIN t_booktype ON t_book.typeid = t_booktype.id
+        INNER JOIN t_publisher ON t_book.pubid = t_publisher.id
+        <where>
+            <if test="keyword != null and keyword != ''">
+                t_book.bookname LIKE concat('%',#{keyword},'%')
+            </if>
+        </where>
+        <if test="sortColumnName != null and sortColumnName != '' and sortType != null and sortType != ''">
+            ORDER BY ${sortColumnName} ${sortType}
+        </if>
+        limit ${start},${length}
+    </select>
+    <select id="countByKeyWord" resultType="Long">
+        select count(*) FROM t_book
+        <where>
+            <if test="keyword != null and keyword !=''">
+                bookname LIKE concat('%',#{keyword},'%')
+            </if>
+        </where>
+    </select>
 </mapper>

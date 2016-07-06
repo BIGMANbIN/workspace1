@@ -23,5 +23,10 @@ public interface BookMapper {
     Long countByParam(Map<String,Object> param);
 
     List<Book> findByPage(@Param("start") Integer start,@Param("size") Integer size);
+
     List<Book> findByParam(Map<String,Object> param);
+
+    List<Book> findByDataTable(Map<String, Object> param);
+
+    Long countByKeyWord(@Param("keyword") String keyword);
 }
