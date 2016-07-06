@@ -54,4 +54,39 @@
         ORDER BY t_book.id DESC
         limit ${start},${size}
     </select>
+    <select id="countByParam" resultType="Long">
+        SELECT count(*) FROM t_book
+        <where>
+            <if test="bookname !=null and bookname != ''">
+                bookname LIKE CONCAT('%',#{bookname},'%')
+            </if>
+            <if test="type != null and type != ''">
+                and typeid = #{type}
+            </if>
+            <if test="publisher != null and publisher != ''">
+                and publisher = #{publisher}
+            </if>
+        </where>
+    </select>
+    <select id="findByParam" resultType="Book">
+        SELECT t_book.*,
+        t_booktype.id as 'bookType.id',t_booktype.booktype as 'bookType.bookType',
+        t_publisher.id as 'publisher.id',t_publisher.pubname as 'publisher.pubname'
+        FROM t_book
+        INNER join t_booktype ON t_book.typeid = t_booktype.id
+        INNER JOIN t_publisher on t_book.pubid = t_publisher.id
+        <where>
+            <if test="bookname != null and bookname != ''">
+                bookname LIKE CONCAT('%',#{bookname},'%')
+            </if>
+            <if test="type != null and type != ''">
+                and typeid = #{type}
+            </if>
+            <if test="publisher != null and publisher != ''">
+                and publisher = #{publisher}
+            </if>
+        </where>
+        ORDER by t_book.id DESC
+        limit ${start},${size}
+    </select>
 </mapper>

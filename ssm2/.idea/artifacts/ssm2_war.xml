@@ -3,6 +3,7 @@
     <output-path>$PROJECT_DIR$/target</output-path>
     <root id="archive" name="ssm.war">
       <element id="artifact" artifact-name="ssm2:war exploded" />
+      <element id="module-output" name="ssm2" />
     </root>
   </artifact>
 </component>

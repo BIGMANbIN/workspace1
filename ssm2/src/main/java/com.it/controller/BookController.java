@@ -1,9 +1,8 @@
 package com.it.controller;
 
-
+;
 import com.google.common.collect.Maps;
 import com.it.exception.NotFoundException;
-import com.it.mapper.BookTypeMapper;
 import com.it.pojo.Book;
 import com.it.pojo.BookType;
 import com.it.pojo.Publisher;
@@ -17,10 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import javax.inject.Inject;
 import java.util.List;
-
+import java.util.Map;
 @Controller
 @RequestMapping("/books")
 public class BookController {
@@ -39,9 +37,29 @@ public class BookController {
     //分页
     @RequestMapping(method = RequestMethod.GET)
     public String list(@RequestParam(required = false,defaultValue = "1") Integer p,
+                       @RequestParam(required = false) String bookname,
+                       @RequestParam(required = false) Integer type,
+                       @RequestParam(required = false) Integer pub,
                        Model model){
-        Page<Book> page = bookService.findBookPge(p);
+
+        bookname = Strings.toUTF8(bookname);
+
+        Map<String,Object> param = Maps.newHashMap();
+        param.put("bookname",bookname);
+        param.put("type",type);
+        param.put("pub",pub);
+
+        List<Publisher> publishers = bookService.findAllPublisher();
+        List<BookType> bookTypes =bookService.findAllBookType();
+        Page<Book> page = bookService.findBookPge(p,param);
+
+        model.addAttribute("pubs",publishers);
+        model.addAttribute("types",bookTypes);
         model.addAttribute("page",page);
+
+        model.addAttribute("bookname",bookname);
+        model.addAttribute("typeid",type);
+        model.addAttribute("pubid",pub);
         return "books/list";
     }
     @RequestMapping(value = "/new", method = RequestMethod.GET)
