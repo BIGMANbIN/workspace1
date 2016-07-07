@@ -80,9 +80,12 @@ public class BookService {
         return bookMapper.count();
     }
 
-    public Long countByKeyWord(String keyword) {
+    /*public Long countByKeyWord(String keyword) {
         return bookMapper.countByKeyWord(keyword);
+    }*/
+
+
+    public Long countByParam(Map<String, Object> param) {
+        return bookMapper.countByParam(param);
     }
-
-
 }
