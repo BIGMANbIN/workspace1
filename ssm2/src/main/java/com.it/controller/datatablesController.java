@@ -6,6 +6,7 @@ import com.it.pojo.Book;
 import com.it.service.BookService;
 import com.it.util.Strings;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,11 +25,11 @@ public class DataTablesController {
     private BookService bookService;
 
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public String list(){
+    public String list(Model model){
 
+        model.addAttribute("types",bookService.findAllBookType());
+        model.addAttribute("pubs",bookService.findAllPublisher());
         return "datatable/list";
-
-
 
     }
 
@@ -60,5 +61,12 @@ public class DataTablesController {
         result.put("recordsFiltered",bookService.countByKeyWord(keyword));
         result.put("data",bookList);
         return result;
+    }
+
+    @RequestMapping(value = "/new",method = RequestMethod.POST)
+    @ResponseBody
+    public String savaBook(Book book){
+        bookService.saveBook(book);
+        return "success";
     }
 }

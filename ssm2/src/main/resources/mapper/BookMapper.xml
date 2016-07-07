@@ -10,7 +10,7 @@
         parameterType: 方法传入参数的类型
         resultType：方法的返回类型(需要写pojo的完全限定名=包名+类名)
      -->
-    <cache/>
+    <!--<cache/>-->
 
     <insert id="saveBook" parameterType="Book">
         INSERT INTO t_book(bookname,bookprice,bookauthor,booknum,typeid,pubid,bookpic)
@@ -89,6 +89,7 @@
         ORDER by t_book.id DESC
         limit ${start},${size}
     </select>
+
     <select id="findByDataTable" resultType="Book">
         SELECT t_book.*,
         t_booktype.id as 'bookType.id',t_booktype.booktype as 'bookType.bookType',
