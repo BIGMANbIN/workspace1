@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -5,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Log in</title>
+    <title>登录页面</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -33,13 +34,18 @@
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <form action="/home" method="post">
+        <c:if test="${not empty message}">
+            <div class="alert alert-danger">
+                ${message}
+            </div>
+        </c:if>
+        <form action="/" method="post">
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" placeholder="请输入账号">
+                <input type="text" class="form-control" name="username" placeholder="请输入账号">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="请输入密码">
+                <input type="password" class="form-control" password="password" placeholder="请输入密码">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">

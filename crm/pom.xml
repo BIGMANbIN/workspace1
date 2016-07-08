@@ -107,6 +107,13 @@
             <version>4.2.6.RELEASE</version>
         </dependency>
 
+        <!--Shiro-->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-all</artifactId>
+            <version>1.2.4</version>
+        </dependency>
+
         <!--其他-->
         <dependency>
             <groupId>com.google.guava</groupId>
