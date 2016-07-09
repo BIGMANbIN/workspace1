@@ -2,20 +2,29 @@ package com.it.pojo;
 
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.security.Timestamp;
 
 public class User implements Serializable {
 
+
     private Integer id;
     private String username;
-    private String passowrd;
+    private String password;
     private String realname;
-    private Timestamp createtime;
     private String weixin;
+    private Timestamp createtime;
     private Integer roleid;
+    private Role role;
     private Boolean enable;
 
-    private Role role;
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Role getRole() {
+        return role;
+    }
 
     public Integer getId() {
         return id;
@@ -33,12 +42,12 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    public String getPassowrd() {
-        return passowrd;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassowrd(String passowrd) {
-        this.passowrd = passowrd;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getRealname() {
@@ -49,20 +58,20 @@ public class User implements Serializable {
         this.realname = realname;
     }
 
-    public Timestamp getCreatetime() {
-        return createtime;
-    }
-
-    public void setCreatetime(Timestamp createtime) {
-        this.createtime = createtime;
-    }
-
     public String getWeixin() {
         return weixin;
     }
 
     public void setWeixin(String weixin) {
         this.weixin = weixin;
+    }
+
+    public Timestamp getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Timestamp createtime) {
+        this.createtime = createtime;
     }
 
     public Integer getRoleid() {
@@ -81,26 +90,16 @@ public class User implements Serializable {
         this.enable = enable;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", passowrd='" + passowrd + '\'' +
+                ", password='" + password + '\'' +
                 ", realname='" + realname + '\'' +
-                ", createtime=" + createtime +
                 ", weixin='" + weixin + '\'' +
+                ", createtime=" + createtime +
                 ", roleid=" + roleid +
-                ", enable=" + enable +
-                ", role=" + role +
                 '}';
     }
 }

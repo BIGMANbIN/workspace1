@@ -30,7 +30,7 @@
 <body class="hold-transition login-page" style="background-image: url(/static/dist/img/beijng4.jpg)">
 <div class="login-box">
     <div class="login-logo">
-        <a href="/static/index2.html" style="color: rebeccapurple"><b>kaisheng</b>CRM</a>
+        <a href="/" style="color: rebeccapurple"><b>kaisheng</b>CRM</a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
@@ -45,7 +45,7 @@
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" password="password" placeholder="请输入密码">
+                <input type="password" class="form-control" name="password" placeholder="请输入密码">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
