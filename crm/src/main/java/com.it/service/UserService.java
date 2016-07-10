@@ -1,6 +1,7 @@
 package com.it.service;
 
 
+import com.google.common.collect.Maps;
 import com.it.mapper.RoleMapper;
 import com.it.mapper.UserLogMapper;
 import com.it.mapper.UserMapper;
@@ -11,9 +12,10 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.List;
 
 @Named
 public class UserService {
@@ -48,5 +50,31 @@ public class UserService {
         user.setPassword(DigestUtils.md5Hex(password));
 
         userMapper.updateUser(user);
+    }
+
+    /**
+     * 获取当前用户的登录日志
+     * @param start
+     * @param length
+     * @return
+     */
+    public List<UserLog> findCurrentUserLog(String start, String length) {
+        Map<String,Object> param = Maps.newHashMap();
+        param.put("userId",ShiroUtil.getCurrentUserID());
+        param.put("start",start);
+        param.put("length",length);
+
+        return userLogMapper.findByParam(param);
+    }
+
+
+    /**
+     * 获取当前登录用户的日志数量
+     * @return
+     */
+    public Long findCurrentUserLogCount() {
+        Map<String,Object> param = Maps.newHashMap();
+        param.put("userId",ShiroUtil.getCurrentUserID());
+        return userLogMapper.countByParam(param);
     }
 }

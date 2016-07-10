@@ -11,5 +11,26 @@
     <insert id="save">
         INSERT INTO t_log(logintime,loginip,userid) VALUES (#{logintime},#{loginip},#{userid})
     </insert>
+    
+    <select id="findByParam" resultType="UserLog">
+        select * from t_log
+        <where>
+            <if test="userId != null and userId != ''">
+                userid = #{userId}
+            </if>
+        </where>
+        order by id desc
+        <if test="start != null and start != ''">
+            limit ${start},${length}
+        </if>
+    </select>
+    <select id="countByParam" resultType="Long">
+        SELECT count(*) FROM t_log
+        <where>
+            <if test="userId != null and userId != ''">
+                userid = #{userId}
+            </if>
+        </where>
+    </select>
 
 </mapper>
