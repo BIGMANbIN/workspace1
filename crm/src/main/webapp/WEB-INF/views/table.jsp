@@ -56,7 +56,7 @@ desired effect
 <div class="wrapper">
 
     <%@ include file="include/mainHeader.jsp"%>
-    <%@ include file="include/liftSideColumn.jsp"%>
+    <%@ include file="include/leftSide.jsp"%>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->

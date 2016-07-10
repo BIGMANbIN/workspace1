@@ -1,6 +1,7 @@
 package com.it.controller;
 
 
+import com.it.dto.FlashMessage;
 import com.it.service.UserService;
 import com.it.util.ServletUtil;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -26,6 +27,7 @@ public class HomeController {
 
     @Inject
     private UserService userService;
+
     /**
      * 去登录页面
      *
@@ -65,10 +67,23 @@ public class HomeController {
 
             return "redirect:/home";
         } catch (LockedAccountException ex) {
-            redirectAttributes.addFlashAttribute("message", "账号已被禁用");
+            redirectAttributes.addFlashAttribute("message", new FlashMessage(FlashMessage.STATE_ERROR, "账号已被占用"));
         } catch (AuthenticationException exception) {
-            redirectAttributes.addFlashAttribute("message", "账号或密码错误");
+            redirectAttributes.addFlashAttribute("message", new FlashMessage(FlashMessage.STATE_ERROR, "账号或密码错误"));
         }
+        return "redirect:/";
+    }
+
+    /**
+     * 安全退出
+     *
+     * @return
+     */
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(RedirectAttributes redirectAttributes) {
+        SecurityUtils.getSubject().logout();
+        redirectAttributes.addFlashAttribute("message", new FlashMessage("您已安全退出"));
         return "redirect:/";
     }
 
