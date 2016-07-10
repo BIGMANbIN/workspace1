@@ -4,8 +4,10 @@ package com.it.service;
 import com.it.mapper.RoleMapper;
 import com.it.mapper.UserLogMapper;
 import com.it.mapper.UserMapper;
+import com.it.pojo.User;
 import com.it.pojo.UserLog;
 import com.it.util.ShiroUtil;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,5 +41,12 @@ public class UserService {
         userLog.setUserid(ShiroUtil.getCurrentUserID());
 
         userLogMapper.save(userLog);
+    }
+
+    public void changePassword(String password) {
+        User user = ShiroUtil.getCurrentUser();
+        user.setPassword(DigestUtils.md5Hex(password));
+
+        userMapper.updateUser(user);
     }
 }

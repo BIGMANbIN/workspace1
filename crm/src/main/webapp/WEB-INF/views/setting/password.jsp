@@ -67,12 +67,76 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 2.2.0 -->
-<script src="/static/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+<script src="/static/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="/static/plugins/validate/jquery.validate.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="/static/bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/static/dist/js/app.min.js"></script>
 
+
+<script>
+    $(function () {
+        $("#changePasswordForm").validate({
+            errorElemnet: "span",
+            errorClass: "text-danger",
+            rules: {
+                oldpassword: {
+                    required: true,
+                    remote: "/user/validate/password"
+
+                },
+                newpassword: {
+                    required: true,
+                    rangelength: [6, 18]
+                },
+                replypassword: {
+                    required: true,
+                    rangelength: [6, 18],
+                    equalTo: "#newpassword"
+                }
+            },
+            messages: {
+                oldpassword: {
+                    required: "请输入密码",
+                    remote: "旧密码错误"
+                },
+                newpassword: {
+                    required: "请输入新密码",
+                    rangelength: "密码长度6-18位"
+                },
+                replypassword: {
+                    required: "请确认输入新密码",
+                    rangelength: "密码长度6-18位",
+                    equalTo: "两次输入密码不一致"
+
+                }
+            },
+            submitHandler: function (form) {
+
+                var password = $("#newpassword").val();
+                $.post("/user/password", {"password": password}).done(function (data) {
+
+                    if (data == 'success') {
+                        alert("密码修改成功,点击确定重新登录");
+                        window.location.href = "/";
+                    }
+                }).fail(function () {
+                    alert("服务器异常")
+                })
+
+            }
+        });
+
+
+        $("#saveBtn").click(function () {
+            $("#changePasswordForm").submit();
+
+        });
+
+    });
+
+</script>
 
 </body>
 </html>
