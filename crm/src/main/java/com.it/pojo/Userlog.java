@@ -5,8 +5,8 @@ import java.io.Serializable;
 public class UserLog implements Serializable {
 
     private Integer id;
-    private String logtime;
-    private String logip;
+    private String logintime;
+    private String loginip;
     private Integer userid;
 
     public Integer getId() {
@@ -17,20 +17,20 @@ public class UserLog implements Serializable {
         this.id = id;
     }
 
-    public String getLogtime() {
-        return logtime;
+    public String getLogintime() {
+        return logintime;
     }
 
-    public void setLogtime(String logtime) {
-        this.logtime = logtime;
+    public void setLogintime(String logintime) {
+        this.logintime = logintime;
     }
 
-    public String getLogip() {
-        return logip;
+    public String getLoginip() {
+        return loginip;
     }
 
-    public void setLogip(String logip) {
-        this.logip = logip;
+    public void setLoginip(String loginip) {
+        this.loginip = loginip;
     }
 
     public Integer getUserid() {
@@ -45,9 +45,10 @@ public class UserLog implements Serializable {
     public String toString() {
         return "UserLog{" +
                 "id=" + id +
-                ", logtime='" + logtime + '\'' +
-                ", logip='" + logip + '\'' +
+                ", logintime='" + logintime + '\'' +
+                ", loginip='" + loginip + '\'' +
                 ", userid=" + userid +
                 '}';
     }
+
 }

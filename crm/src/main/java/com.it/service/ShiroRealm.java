@@ -23,7 +23,7 @@ public class ShiroRealm extends AuthorizingRealm {
     private UserMapper userMapper;
     @Inject
     private RoleMapper roleMapper;
-    Logger logger =  LoggerFactory.getLogger(ShiroRealm.class);
+    Logger logger = LoggerFactory.getLogger(ShiroRealm.class);
 
     /**
      * 验证用户是否具有某项权限
@@ -68,10 +68,6 @@ public class ShiroRealm extends AuthorizingRealm {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         String username = token.getUsername(); //获取用户表单中的账号
         User user = userMapper.findByUsername(username); //根据账号查找对应的对象
-        logger.debug("user is {}",user);
-        logger.debug("username is {}",username);
-        logger.debug("password is {}",token.getPassword());
-
         if (user != null) {
             if (!user.getEnable()) {
                 throw new LockedAccountException("账号已被禁用");
