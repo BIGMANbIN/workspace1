@@ -70,12 +70,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <script>
     $(function () {
-        var dataTable = $("#logTable").dataTable({
+        var dataTable = $("#logTable").DataTable({
 
             "searching":false,
             "serverSide":true,
             "ajax":"/user/log/load",
-            "order":[0,"desc"],
             "ordering":false,
             "autoWidth": false,
             "columns":[
@@ -83,7 +82,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 {"data":"loginip"}
             ],
             "language": { //定义中文
-                "search": "请输入书籍名称:",
+                "search": "请输入名称:",
                 "zeroRecords": "没有匹配的数据",
                 "lengthMenu": "显示 _MENU_ 条数据",
                 "info": "显示从 _START_ 到 _END_ 条数据 共 _TOTAL_ 条数据",

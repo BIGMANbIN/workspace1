@@ -2,21 +2,19 @@ package com.it.dto;
 
 import java.util.List;
 
-/**
- * Created by Administrator on 2016/7/10 0010.
- */
+
 public class DataTablesResult<T> {
 
     private String draw;
     private List<T> data;
     private Long recordsTotal;
-    private Long recordsFilterer;
+    private Long recordsFiltered;
 
-    public DataTablesResult(String draw, List<T> data, Long recordsTotal, Long getRecordsFilterer) {
+    public DataTablesResult(String draw, List<T> data, Long recordsTotal, Long getRecordsFiltered) {
         this.draw = draw;
         this.data = data;
         this.recordsTotal = recordsTotal;
-        this.recordsFilterer = getRecordsFilterer;
+        this.recordsFiltered = getRecordsFiltered;
     }
 
     public String getDraw() {
@@ -43,11 +41,11 @@ public class DataTablesResult<T> {
         this.recordsTotal = recordsTotal;
     }
 
-    public Long getRecordsFilterer() {
-        return recordsFilterer;
+    public Long getRecordsFiltered() {
+        return recordsFiltered;
     }
 
-    public void setRecordsFilterer(Long recordsFilterer) {
-        this.recordsFilterer = recordsFilterer;
+    public void setRecordsFilterer(Long recordsFiltered) {
+        this.recordsFiltered = recordsFiltered;
     }
 }

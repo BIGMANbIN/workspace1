@@ -23,7 +23,7 @@
                 <li class="treeview">
                     <a href="#"><i class="fa fa-cogs"></i> <span>系统管理</span> <i class="fa fa-angle-left pull-right"></i></a>
                     <ul class="treeview-menu">
-                        <li><a href="#">员工管理</a></li>
+                        <li><a href="/admin/userlist">员工管理</a></li>
                         <li><a href="#">系统设置</a></li>
                     </ul>
                 </li>
