@@ -15,13 +15,13 @@ public interface UserMapper {
 
     void updateUser(User user);
 
-
     List<User> findByParam(Map<String, Object> params);
-
 
     Long count();
 
     Long countByParam(Map<String, Object> params);
 
+    void save(User user);
 
+    User findById(Integer id);
 }

@@ -2,7 +2,7 @@ package com.it.pojo;
 
 
 import java.io.Serializable;
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 public class User implements Serializable {
 
@@ -17,14 +17,6 @@ public class User implements Serializable {
     private Role role;
     private Boolean enable;
 
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public Role getRole() {
-        return role;
-    }
 
     public Integer getId() {
         return id;
@@ -82,6 +74,14 @@ public class User implements Serializable {
         this.roleid = roleid;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public Boolean getEnable() {
         return enable;
     }
@@ -100,6 +100,8 @@ public class User implements Serializable {
                 ", weixin='" + weixin + '\'' +
                 ", createtime=" + createtime +
                 ", roleid=" + roleid +
+                ", role=" + role +
+                ", enable=" + enable +
                 '}';
     }
 }

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <!--
@@ -101,7 +102,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                     <div class="form-group">
                         <label>角色</label>
-                        <input type="text" class="form-control" name="roleid">
+                        <select name="roleid">
+                            <c:forEach items="${roleList}" var="role">
+                                <option value="${role.id}">${role.rolename}</option>
+                            </c:forEach>
+                        </select>
                     </div>
                 </form>
             </div>
@@ -115,7 +120,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- jQuery 2.2.0 -->
 <script src="/static/plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script src="/static/plugins/validate/jquery.validate.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="/static/bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
@@ -123,6 +127,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="/static/plugins/moment/moment.min.js"></script>
 <script src="/static/plugins/datatables/js/jquery.dataTables.min.js"></script>
 <script src="/static/plugins/datatables/js/dataTables.bootstrap.min.js"></script>
+<script src="/static/plugins/validate/jquery.validate.min.js"></script>
 
 <script>
     $(function () {
@@ -157,7 +162,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 {
                     "data": function (row) {
-                        return "";
+                        return "<a href='javascript:;' class='resetPwd' rel='"+row.id+"'>重置密码</a>";
+
                     }
                 }
             ],
@@ -179,10 +185,60 @@ scratch. This page gets rid of all links and provides the needed markup only.
         });
         //新增用户
 
+        $("#newForm").validate({
+            errorClass: "text-danger",
+            errorElement: "span",
+            rules: {
+                realname: {
+                    required: true,
+                    rangelength: [2, 20]
+                },
+                username: {
+                    required: true,
+                    rangelength: [3, 20],
+                    remote: "/admin/user/checkusername"
+                },
+                password: {
+                    required: true,
+                    rangelength: [6, 18]
+                },
+                weixin: {
+                    required: true
+                }
+
+            },
+            messages: {
+                realname: {
+                    required: "请输入真实姓名",
+                    rangelength: "姓名长度为2-20位"
+                },
+                username: {
+                    required: "请输入用户名",
+                    rangelength: "用户名长度为3-20位",
+                    remote: "该用户名已被占用"
+
+                },
+                password: {
+                    required: "请输入密码",
+                    rangelength: "密码长度为6-18位"
+                },
+                weixin: "请输入微信号"
+            },
+            submitHandler: function (form) {
+                $.post("/admin/users/new", $(form).serialize()).done(function (data) {
+                    if (data == "success") {
+                        $("#newModal").modal('hide');
+                        dataTable.ajax.reload();
+                    }
+                }).fail(function () {
+                    alert("服务器异常");
+                });
+            }
+        });
 
         $("#newBtn").click(function () {
             $("#newForm")[0].reset();
-            $("#newModal").Modal({
+            $("#newModal").modal({
                 show: true,
                 backdrop: 'static',
                 keyboard: false
@@ -192,6 +248,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $("#saveBtn").click(function () {
             $("#newForm").submit();
         });
+
+        //重置密码
+        $(document).delegate(".resetPwd","click",function(){
+            var id = $(this).attr("rel");
+            if(confirm("确定将密码重置为000000？")){
+                $.post("/admin/users/resetpassword",{"id":id}).done(function(data){
+                  if(data == 'success'){
+                      alert("密码重置成功");
+                  }
+                }).fail(function(){
+                   alert("服务器异常")
+                });
+            }
+
+
+        })
+
     });
 
 </script>

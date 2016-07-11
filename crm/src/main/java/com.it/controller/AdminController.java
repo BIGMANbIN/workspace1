@@ -28,34 +28,76 @@ public class AdminController {
 
     /**
      * 显示用户列表
+     *
      * @param model
      * @return
      */
-    @RequestMapping(value = "/userlist",method = RequestMethod.GET)
-    public String userList(Model model){
+    @RequestMapping(value = "/userlist", method = RequestMethod.GET)
+    public String userList(Model model) {
 
-       List<Role> roleList = userService.findAllRole();
-        model.addAttribute("roleList",roleList);
+        List<Role> roleList = userService.findAllRole();
+        model.addAttribute("roleList", roleList);
         return "admin/userlist";
     }
 
-    @RequestMapping(value = "/users/load",method = RequestMethod.GET)
+    @RequestMapping(value = "/users/load", method = RequestMethod.GET)
     @ResponseBody
-    public DataTablesResult<User> loadUsers(HttpServletRequest request){
+    public DataTablesResult<User> loadUsers(HttpServletRequest request) {
         String draw = request.getParameter("draw");
         String start = request.getParameter("start");
         String length = request.getParameter("length");
         String keyword = request.getParameter("search[value]");
         keyword = Strings.toUTF8(keyword);
 
-        Map<String,Object> params = Maps.newHashMap();
-        params.put("keyword",keyword);
-        params.put("start",start);
-        params.put("length",length);
+        Map<String, Object> params = Maps.newHashMap();
+        params.put("keyword", keyword);
+        params.put("start", start);
+        params.put("length", length);
 
         List<User> userList = userService.findUserListByParam(params);
         Long count = userService.findUserCount();
         Long filterCount = userService.findUserCountByParam(params);
-        return new DataTablesResult<>(draw,userList,count,filterCount);
+        return new DataTablesResult<>(draw, userList, count, filterCount);
     }
+
+    /**
+     * 验证用户名是否可用（Ajax调用）
+     *
+     * @param username
+     * @return
+     */
+    @RequestMapping(value = "/user/checkusername", method = RequestMethod.GET)
+    @ResponseBody
+    public String checkUserName(String username) {
+        User user = userService.findUserByUserName(username);
+        if (user == null) {
+            return "true";
+        }
+        return "false";
+    }
+
+
+    /**
+     * 添加新用户
+     *
+     * @return
+     */
+    @RequestMapping(value = "/users/new",method = RequestMethod.POST)
+    @ResponseBody
+    public String saveUser(User user) {
+        userService.saveUser(user);
+        return "success";
+    }
+
+    /**
+     * 重置密码为000000
+     * @return
+     */
+    @RequestMapping(value = "/users/resetpassword",method = RequestMethod.POST)
+    @ResponseBody
+    public String resetPassword(Integer id){
+        userService.resetUserPassword(id);
+        return "success";
+    }
+
 }

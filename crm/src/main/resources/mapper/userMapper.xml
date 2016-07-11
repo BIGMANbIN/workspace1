@@ -6,6 +6,11 @@
 <mapper namespace="com.it.mapper.UserMapper">
 
     <cache/>
+    <insert id="save">
+      INSERT  INTO t_user(username, password, realname, weixin, roleid, enable)
+      VALUES (#{username},#{password},#{realname},#{weixin},#{roleid},#{enable})
+    </insert>
+
     <update id="updateUser">
         UPDATE t_user SET password = #{password},realname=#{realname},weixin=#{weixin},enable=#{enable}
         where id=#{id}
@@ -26,9 +31,11 @@
         order by t_user.id asc
         limit ${start},${length}
     </select>
+
     <select id="count" resultType="java.lang.Long">
         SELECT count(*) from t_user
     </select>
+
     <select id="countByParam" resultType="java.lang.Long">
         SELECT count(*) FROM t_user
         <where>
@@ -37,5 +44,9 @@
                 or realname like concat('%',#{keyword},'%')
             </if>
         </where>
+    </select>
+
+    <select id="findById" resultType="com.it.pojo.User">
+        SELECT * FROM t_user WHERE id=#{id}
     </select>
 </mapper>

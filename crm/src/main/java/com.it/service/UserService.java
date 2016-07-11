@@ -13,6 +13,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -55,15 +57,16 @@ public class UserService {
 
     /**
      * 获取当前用户的登录日志
+     *
      * @param start
      * @param length
      * @return
      */
     public List<UserLog> findCurrentUserLog(String start, String length) {
-        Map<String,Object> param = Maps.newHashMap();
-        param.put("userid",ShiroUtil.getCurrentUserID());
-        param.put("start",start);
-        param.put("length",length);
+        Map<String, Object> param = Maps.newHashMap();
+        param.put("userid", ShiroUtil.getCurrentUserID());
+        param.put("start", start);
+        param.put("length", length);
 
         return userLogMapper.findByParam(param);
     }
@@ -71,16 +74,18 @@ public class UserService {
 
     /**
      * 获取当前登录用户的日志数量
+     *
      * @return
      */
     public Long findCurrentUserLogCount() {
-        Map<String,Object> param = Maps.newHashMap();
-        param.put("userid",ShiroUtil.getCurrentUserID());
+        Map<String, Object> param = Maps.newHashMap();
+        param.put("userid", ShiroUtil.getCurrentUserID());
         return userLogMapper.countByParam(param);
     }
 
     /**
      * 根据查询参数获取用户列表
+     *
      * @param params
      * @return
      */
@@ -90,23 +95,69 @@ public class UserService {
 
     /**
      * 获取用户数量
+     *
      * @return
      */
     public Long findUserCount() {
-       return userMapper.count();
+        return userMapper.count();
     }
 
     /**
      * 根据查询条件获取用户数量
-     *@param params
+     *
+     * @param params
      * @return
      */
     public Long findUserCountByParam(Map<String, Object> params) {
         return userMapper.countByParam(params);
     }
 
+    /**
+     * 获取所有的角色
+     *
+     * @return
+     */
 
     public List<Role> findAllRole() {
         return roleMapper.findAll();
+    }
+
+    /**
+     * 添加新用户
+     *
+     * @param user
+     */
+    @Transactional
+    public void saveUser(User user) {
+        user.setEnable(true);
+        user.setPassword(DigestUtils.md5Hex(user.getPassword()));
+
+        //TODO 向微信公众平台注册账号
+
+        userMapper.save(user);
+    }
+
+    /**
+     * 根据用户名查找用户
+     *
+     * @param username
+     * @return
+     */
+    public User findUserByUserName(String username) {
+        return userMapper.findByUsername(username);
+    }
+
+    /**
+     * 重置用户密码
+     * @param id
+     */
+    public void resetUserPassword(Integer id) {
+        User user = userMapper.findById(id);
+
+        if(user != null){
+            user.setPassword(DigestUtils.md5Hex("000000"));
+            userMapper.updateUser(user);
+        }
+
     }
 }
