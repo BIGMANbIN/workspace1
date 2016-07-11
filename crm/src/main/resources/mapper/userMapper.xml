@@ -12,7 +12,7 @@
     </insert>
 
     <update id="updateUser">
-        UPDATE t_user SET password = #{password},realname=#{realname},weixin=#{weixin},enable=#{enable}
+        UPDATE t_user SET password = #{password},realname=#{realname},weixin=#{weixin},enable=#{enable},roleid=#{roleid}
         where id=#{id}
     </update>
 
