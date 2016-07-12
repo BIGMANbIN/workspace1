@@ -22,6 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <
     <link rel="stylesheet" href="/static/dist/css/skins/skin-blue.min.css">
     <link rel="stylesheet" href="/static/plugins/simditor/styles/simditor.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/default.min.css">
 
 
 </head>
@@ -104,11 +105,18 @@ desired effect
 <script src="/static/plugins/simditor/scripts/hotkeys.min.js"></script>
 <script src="/static/plugins/simditor/scripts/uploader.min.js"></script>
 <script src="/static/plugins/simditor/scripts/simditor.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js"></script>
 <script>
     $(function () {
 
         var edit = new Simditor({
-            textarea:$("#context")
+            textarea:$("#context"),
+            placeholder:"请输入公告内容",
+            upload:{
+                url:"/notice/img/upload",
+                fileKey:"file"
+            }
+
         });
 
         $("#saveBtn").click(function () {
