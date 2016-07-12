@@ -1,14 +1,21 @@
 package com.it.controller;
 
 
+import com.google.common.collect.Maps;
+import com.it.dto.DataTablesResult;
 import com.it.pojo.Notice;
 import com.it.service.NoticeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
+
 
 @RequestMapping("/notice")
 @Controller
@@ -17,9 +24,27 @@ public class NoticeController {
     @Inject
     private NoticeService noticeService;
 
+
     @RequestMapping(method = RequestMethod.GET)
     public String noticelist(){
         return "notice/noticelist";
+    }
+
+    @RequestMapping(value = "/load",method = RequestMethod.GET)
+    @ResponseBody
+    public DataTablesResult loadNotice(HttpServletRequest request){
+        String draw = request.getParameter("draw");
+        String start = request.getParameter("start");
+        String length = request.getParameter("length");
+
+        Map<String,Object> param = Maps.newHashMap();
+
+        param.put("start",start);
+        param.put("length",length);
+
+        List<Notice> noticeList = noticeService.findByParam(param);
+        Long count = noticeService.count();
+        return new DataTablesResult(draw,noticeList,count,count);
     }
 
     /**
@@ -38,5 +63,18 @@ public class NoticeController {
         return "redirect:/notice";
 
     }
+
+    /**
+     * 根据ID显示公告内容
+     * @return
+     */
+    /*public String viewNotice(){
+        return null;
+    }*/
+
+
+
+
+
 
 }

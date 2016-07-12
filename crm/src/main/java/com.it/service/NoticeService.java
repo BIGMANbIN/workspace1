@@ -7,6 +7,8 @@ import com.it.util.ShiroUtil;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.List;
+import java.util.Map;
 
 @Named
 public class NoticeService {
@@ -24,5 +26,15 @@ public class NoticeService {
         noticeMapper.addNotice(notice);
 
         //TODO 微信通知
+    }
+
+    public List<Notice> findByParam(Map<String, Object> param) {
+
+        return noticeMapper.findByParam(param);
+    }
+
+    public Long count() {
+
+        return noticeMapper.count();
     }
 }

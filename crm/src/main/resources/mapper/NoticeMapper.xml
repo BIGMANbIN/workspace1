@@ -10,4 +10,12 @@
         VALUES (#{title},#{context},#{userid},#{realname})
     </insert>
 
+    <select id="findByParam" resultType="com.it.pojo.Notice">
+        SELECT * FROM t_notice ORDER BY id DESC limit ${start},${length}
+    </select>
+
+    <select id="count" resultType="java.lang.Long">
+        select count(*) from t_notice
+    </select>
+
 </mapper>
