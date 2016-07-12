@@ -13,4 +13,5 @@ public interface NoticeMapper {
 
     Long count();
 
+    Notice findById(Integer id);
 }

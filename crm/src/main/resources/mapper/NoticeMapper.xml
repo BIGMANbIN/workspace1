@@ -17,5 +17,8 @@
     <select id="count" resultType="java.lang.Long">
         select count(*) from t_notice
     </select>
+    <select id="findById" resultType="com.it.pojo.Notice">
+        SELECT * FROM t_notice WHERE id = #{id}
+    </select>
 
 </mapper>

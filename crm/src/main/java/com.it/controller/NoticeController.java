@@ -5,7 +5,10 @@ import com.google.common.collect.Maps;
 import com.it.dto.DataTablesResult;
 import com.it.pojo.Notice;
 import com.it.service.NoticeService;
+import com.it.exception.NotFoundException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -68,9 +71,16 @@ public class NoticeController {
      * 根据ID显示公告内容
      * @return
      */
-    /*public String viewNotice(){
-        return null;
-    }*/
+    @RequestMapping(value = "/{id:\\d+}",method = RequestMethod.GET)
+    public String viewNotice(@PathVariable Integer id, Model model){
+
+        Notice notice = noticeService.findById(id);
+        if(notice == null){
+            throw new NotFoundException();
+        }
+        model.addAttribute("notice",notice);
+        return "notice/view";
+    }
 
 
 

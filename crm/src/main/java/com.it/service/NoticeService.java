@@ -28,13 +28,31 @@ public class NoticeService {
         //TODO 微信通知
     }
 
+    /**
+     * 根据搜索条件查询notice集合
+     * @param param
+     * @return
+     */
     public List<Notice> findByParam(Map<String, Object> param) {
 
         return noticeMapper.findByParam(param);
     }
 
+    /**
+     * 查询公告的总数量
+     * @return
+     */
     public Long count() {
 
         return noticeMapper.count();
+    }
+
+    /**
+     *跟姐主键id查找公告内容
+     * @param id
+     * @return
+     */
+    public Notice findById(Integer id) {
+        return noticeMapper.findById(id);
     }
 }

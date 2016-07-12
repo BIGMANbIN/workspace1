@@ -62,7 +62,7 @@ desired effect
                     <h3 class="box-title">公告列表</h3>
                     <shiro:hasRole name="经理">
                         <div class="box-tools pull-right">
-                            <a href="/notice/new" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i> 发表公告</a>
+                            <a href="/notice/noticenew" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i> 发表公告</a>
                         </div>
                     </shiro:hasRole>
                 </div>
