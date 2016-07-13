@@ -73,7 +73,9 @@ desired effect
                         <fmt:formatDate value="${notice.createtime}" pattern="y-M-d H:m"/></small></h2>
                 </div>
                 <div class="box-body">
-                    ${notice.context}
+                    <code>
+                        <pre>${notice.context}</pre>
+                    </code>
                 </div>
                 <div class="box-footer">
 
