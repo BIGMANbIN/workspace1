@@ -97,7 +97,7 @@ public class NoticeController {
     @ResponseBody
     public Map<String, Object> upload(MultipartFile file) throws IOException {
         Map<String, Object> result = Maps.newHashMap();
-        if (file.isEmpty()) {
+        if (!file.isEmpty()) {
             String path = noticeService.saveImage(file.getInputStream(), file.getOriginalFilename());
 
             result.put("success", true);

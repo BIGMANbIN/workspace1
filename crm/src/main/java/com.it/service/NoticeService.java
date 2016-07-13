@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -23,7 +20,7 @@ public class NoticeService {
     @Inject
     private NoticeMapper noticeMapper;
     @Value("${imagePath}")
-    private String imageSavePth;
+    private String imageSavePath;
 
     /**
      * 保存新的公告
@@ -77,11 +74,12 @@ public class NoticeService {
      * @return
      */
     public String saveImage(InputStream inputStream, String fileName) throws IOException {
-        //String exName = filename.substring(filename.lastIndexOf("."));
+        //String exName = filename.substring(fileName.lastIndexOf("."));
 
         String newFileName = UUID.randomUUID().toString();
 
-        FileOutputStream outputStream = new FileOutputStream(newFileName);
+
+        FileOutputStream outputStream = new FileOutputStream(new File(imageSavePath,newFileName));
         IOUtils.copy(inputStream, outputStream);
 
         outputStream.flush();
