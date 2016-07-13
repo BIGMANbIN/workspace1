@@ -1,6 +1,7 @@
 package com.it.controller;
 
 
+import com.google.common.collect.Maps;
 import com.it.exception.NotFoundException;
 import com.it.pojo.Document;
 import com.it.service.DocumentService;
@@ -14,7 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-
+import java.util.Map;
 import javax.inject.Inject;
 import java.io.*;
 import java.util.List;
@@ -36,7 +37,9 @@ public class DocumentController {
                           @RequestParam(required = false, defaultValue = "0") Integer fid) {
 
         List<Document> documentList = documentService.findBydocFid(fid);
+        List<Document> crumbList = documentService.breadCrumb(fid);
         model.addAttribute("documentList", documentList);
+        model.addAttribute("crumbList",crumbList);
         model.addAttribute("fid", fid);
 
         return "/document/doclist";
@@ -86,7 +89,6 @@ public class DocumentController {
     public ResponseEntity<InputStreamResource> downloadFile(@PathVariable("id") Integer id) throws FileNotFoundException, UnsupportedEncodingException {
         Document document = documentService.findDocumentById(id);
 
-        System.out.println("2131231231");
         if (document == null) {
             throw new NotFoundException();
         }
@@ -106,4 +108,6 @@ public class DocumentController {
                 .header("Content-Disposition", "attachment;filename=\"" + fileName + "\"")
                 .body(new InputStreamResource(inputStream));
     }
+
+
 }

@@ -23,7 +23,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <link rel="stylesheet" href="/static/dist/css/skins/skin-blue.min.css">
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/default.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css">
 
 </head>
 <!--
@@ -69,13 +69,12 @@ desired effect
         <section class="content">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h2 class="box-title">${notice.title} <small>${notice.realname}
-                        <fmt:formatDate value="${notice.createtime}" pattern="y-M-d H:m"/></small></h2>
+                    <h2 class="box-title">${notice.title} &nbsp;&nbsp;&nbsp;
+                        <small>${notice.realname}<fmt:formatDate value="${notice.createtime}" pattern="y-M-d H:m"/></small></h2>
                 </div>
                 <div class="box-body">
-                    <code>
-                        <pre>${notice.context}</pre>
-                    </code>
+
+                       ${notice.context}
                 </div>
                 <div class="box-footer">
 
@@ -97,7 +96,10 @@ desired effect
 <script src="/static/bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/static/dist/js/app.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js"></script>
+<script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
 </body>
 </html>
 

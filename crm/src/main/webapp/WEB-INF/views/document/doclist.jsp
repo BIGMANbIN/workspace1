@@ -58,14 +58,27 @@ desired effect
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
 
+        <section class="content-header">
+            <h1>　　</h1>
+            <ol class="breadcrumb">
+                <li><a href="/doc"><i class="fa fa-file-text"></i>文档管理</a></li>
+                <c:forEach var="crumb" items="${crumbList}">
+                    <li><a href="/doc?fid=${crumb.id}">${crumb.name}</a></li>
+                </c:forEach>
+            </ol>
+        </section>
+
         <section class="content">
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">文档列表-${fid}</h3>
                     <shiro:hasRole name="经理">
                         <div class="box-tools">
-                            <span id="uploadBtn"><span class="text"><i class="fa fa-upload"></i> 上传文件</span></span>
-                            <button class="btn btn-bitbucket btn-xs" id="newDir"><i class="fa fa-folder">新建文件夹</i>
+                            <div class="pull-right" id="picker" style="display: inline;">
+                                <span id="uploadBtn"><span class="text"><i class="fa fa-upload"></i> 上传文件</span></span>
+                            </div>
+                            <button class="btn btn-bitbucket btn-xs" id="newDir"
+                                    style="height: 42px;margin-right: 10px"><i class="fa fa-folder">新建文件夹</i>
                             </button>
                         </div>
                     </shiro:hasRole>

@@ -1,5 +1,6 @@
 package com.it.service;
 
+import com.google.common.collect.Lists;
 import com.it.mapper.DocumentMapper;
 import com.it.pojo.Document;
 import com.it.util.ShiroUtil;
@@ -14,6 +15,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -93,12 +95,38 @@ public class DocumentService {
     }
 
     /**
-     * 根据wID获取文件
+     * 根据ID获取文件
      *
      * @param id
      * @return
      */
     public Document findDocumentById(Integer id) {
         return documentMapper.findById(id);
+    }
+
+
+    public List<Document> breadCrumb(Integer fid) {
+        List<Document> documentList = new ArrayList<>();
+        if (fid == 0) {
+            return documentList;
+        }
+        while (fid > 0) {
+            Document document = findDocumentById(fid);
+            documentList.add(document);
+            fid = document.getFid();
+        }
+
+        int length = documentList.size();
+
+        if (length < 2) {
+            return documentList;
+        } else {
+            List<Document> documentList1 = Lists.newArrayList();
+            for (int i = 0; i < length; i++) {
+                documentList1.add(documentList.get(length - i - 1));
+
+            }
+            return documentList1;
+        }
     }
 }
