@@ -105,6 +105,12 @@ public class DocumentService {
     }
 
 
+    /**
+     * 面包屑
+     *
+     * @param fid
+     * @return
+     */
     public List<Document> breadCrumb(Integer fid) {
         List<Document> documentList = new ArrayList<>();
         if (fid == 0) {
@@ -116,17 +122,11 @@ public class DocumentService {
             fid = document.getFid();
         }
 
-        int length = documentList.size();
+        List<Document> documentList1 = Lists.newArrayList();
+        for (int i = 0; i < documentList.size(); i++) {
+            documentList1.add(documentList.get(documentList.size()-i-1));
 
-        if (length < 2) {
-            return documentList;
-        } else {
-            List<Document> documentList1 = Lists.newArrayList();
-            for (int i = 0; i < length; i++) {
-                documentList1.add(documentList.get(length - i - 1));
-
-            }
-            return documentList1;
         }
+        return documentList1;
     }
 }
