@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.it.mapper.CustomerMapper">
+
+    <cache/>
+    <insert id="add">
+        INSERT INTO t_customer (name, tel, address, email, pinyin, companyid, companyname, level, userid, type)
+        VALUES (#{name},#{tel},#{address},#{email},#{pinyin},#{companyid},#{companyname},#{level},#{userid},#{type})
+    </insert>
+
+    <update id="update">
+      UPDATE t_customer SET name = #{name},tel = #{tel},weixin = #{weixin},address=#{address},
+        email=#{email},userid=#{userid},pinyin=#{pinyin},companyid=#{companyid},companyname=#{companyname},
+        level=#{level} where id = #{id}
+    </update>
+
+    <delete id="del">
+        DELETE FROM t_customer WHERE id = #{id}
+    </delete>
+
+    <select id="findByParam" resultType="Customer">
+        SELECT * FROM t_customer
+        <where>
+            <if test="userid != null and userid != ''">
+                (userid = #{userid} or (userid = '' or userid is null))
+            </if>
+            <if test="keyword != null and keyword != ''">
+                and (name like concat('%',#{keyword},'%') or pinyin like concat('%',#{keyword},'%') or tel like
+                concat('%',#{keyword},'%'))
+            </if>
+        </where>
+        order by id desc
+        limit ${start},${length}
+    </select>
+
+    <select id="count" resultType="java.lang.Long">
+        SELECT count(*) FROM t_customer
+    </select>
+
+    <select id="countByParam" resultType="Long">
+        SELECT count(*) FROM t_customer
+        <where>
+            <if test="userid != null and userid != ''">
+                userid = #{userid} or (userid = '' or userid is null)
+            </if>
+            <if test="keyword != null and keyword != ''">
+                and (name like concat('%',#{keyword},'%') or pinyin like concat('%',#{keyword},'%') or tel like
+                concat('%',#{keyword},'%'))
+            </if>
+        </where>
+    </select>
+
+    <select id="findByType" resultType="com.it.pojo.Customer">
+        SELECT * FROM t_customer WHERE type =  #{type}
+    </select>
+
+    <select id="findById" resultType="com.it.pojo.Customer">
+        SELECT * FROM t_customer WHERE id = #{id}
+    </select>
+
+    <select id="findCompanyLikeName" resultType="com.it.pojo.Customer">
+        SELECT * FROM t_customer WHERE type='company' AND name like concat('%'#{keyword},'%')
+    </select>
+
+    <select id="finByCompanyId" resultType="com.it.pojo.Customer">
+        SELECT * FROM t_customer WHERE companyid = #{id}
+    </select>
+
+
+</mapper>
