@@ -59,7 +59,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <c:if test="${not empty customer.userid}">
                             <button class="btn btn-danger btn-xs" id="openCust">公开客户</button>
                         </c:if>
-                        <button class="btn btn-info btn-xs" id="moveCust">转移客户</button>
+                        <button class="btn btn-info btn-xs" id="moveCust">转交客户</button>
                     </div>
                 </div>
                 <div class="box-body">
@@ -145,7 +145,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">转移客户</h4>
+                <h4 class="modal-title">转交客户</h4>
             </div>
             <div class="modal-body">
                 <form id="moveForm" action="/customer/move" method="post">

@@ -140,7 +140,7 @@ public class CustomerController {
         List<User> userList = userService.findAllUser();
         model.addAttribute("userList", userList);
 
-        return "customer/view";
+        return "customer/customerview";
     }
 
 
