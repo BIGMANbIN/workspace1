@@ -164,6 +164,13 @@
             <version>2.5.1</version>
         </dependency>
 
+        <!--二维码-->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>ssm</finalName>

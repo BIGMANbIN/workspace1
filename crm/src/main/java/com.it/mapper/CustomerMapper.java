@@ -26,5 +26,6 @@ public interface CustomerMapper {
 
     List<Customer> finByCompanyId(Integer id);
 
-    void update();
+    void update(Customer cus);
+
 }

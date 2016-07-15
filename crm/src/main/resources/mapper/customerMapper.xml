@@ -12,9 +12,9 @@
     </insert>
 
     <update id="update">
-      UPDATE t_customer SET name = #{name},tel = #{tel},weixin = #{weixin},address=#{address},
-        email=#{email},userid=#{userid},pinyin=#{pinyin},companyid=#{companyid},companyname=#{companyname},
-        level=#{level} where id = #{id}
+      UPDATE t_customer SET name=#{name},tel=#{tel},address=#{address},email=#{email},pinyin=#{pinyin},
+      companyid=#{companyid},companyname=#{companyname},level=#{level}, userid=#{userid},type=#{type} where
+      id=#{id}
     </update>
 
     <delete id="del">

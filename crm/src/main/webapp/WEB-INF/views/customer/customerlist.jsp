@@ -251,7 +251,7 @@ desired effect
                 },
                 {
                     "data": function (row) {
-                        return "<a href='javascript:;' rel='" + row.id + "' class='editLink'>编辑</a>  "<shiro:hasRole name="经理"> + "<a href='javascript:;' rel='" + row.id + "' class='delLink'>删除</a>　"</shiro:hasRole>;
+                        return "<a href='javascript:;' rel='"+row.id+"' class='editLink'>编辑</a>"<shiro:hasRole name="经理"> + " | <a href='javascript:;' rel='"+ row.id+"' class='delLink'>删除</a>"</shiro:hasRole>;
                     }
                 }
             ],
@@ -304,6 +304,7 @@ desired effect
             }
         });
 
+        //新增客户
         $("#newBtn").click(function () {
 
             $("#companyList").show();
@@ -354,21 +355,112 @@ desired effect
 
         //删除客户
         <shiro:hasRole name="经理">
-            $(document).delegate(".delLink","click",function(){
-                if(confirm("删除客户会自动删除关联数据，确定要删除吗？")){
-                    var id = $(this).attr("rel");
-                    $.get("/customer/del/"+id).done(function(data){
-                        if(data == "success"){
-                            dataTable.ajax.reload();
-                        }
-                    }).fail(function(){
-                        alert("服务器请求异常...")
-                    })
-                }
-            });
+        $(document).delegate(".delLink", "click", function () {
+            if (confirm("删除客户会自动删除关联数据，确定要删除吗？")) {
+                var id = $(this).attr("rel");
+                $.get("/customer/del/" + id).done(function (data) {
+                    if (data == "success") {
+                        dataTable.ajax.reload();
+                    }
+                }).fail(function () {
+                    alert("服务器请求异常...")
+                })
+            }
+        });
         </shiro:hasRole>
 
+
+        //编辑客户
+        $("#editForm").validate({
+            errorClass:"text-danger",
+            errorElement:"span",
+            rules:{
+                name:{
+                    required:true
+                },
+                tel:{
+                    required:true
+                }
+            },
+            messages:{
+                name:{
+                    required:"请输入客户名称"
+                },
+                tel:{
+                    required:"请输入联系电话"
+                }
+            },
+            submitHandler:function(form){
+                $.post("/customer/edit",$(form).serialize()).done(function(data){
+                    if("success" == data) {
+                        $("#editModal").modal('hide');
+                        dataTable.ajax.reload();
+                    }
+                }).fail(function(){
+                    alert("服务器异常");
+                });
+            }
+        });
+
+        $(document).delegate(".editLink", "click", function () {
+            var id = $(this).attr("rel");
+            var $select = $("#editCompanyList select");
+            $select.html("");
+            $select.append("<option></option>");
+
+            //ajax请求服务端获取ID对应的customer对象和公司列表
+            $.get("/customer/edit/"+id+".json").done(function (data) {
+                if (data.state == "success") {
+                    // 1.获取公司列表动态添加select中的option
+
+                    if (data.companyList && data.companyList.length) {
+                        for (var i = 0; i < data.companyList.length; i++) {
+                            var company = data.companyList[i];
+                            var option = "<option value='" + company.id + "'>" + company.name + "</option>"
+                            $select.append(option);
+                        }
+                    }
+
+                    //2.将获取的customer对象填入表单
+                    var customer = data.customer;
+
+                    //判断customer是否是公司，如果是公司则隐藏所属公司列表
+                    if (customer.type == 'company') {
+                        $("#editCompanyList").hide();
+                    } else {
+                        $("#editCompanyList").show();
+                    }
+
+
+                    $("#edit_id").val(customer.id);
+                    $("#edit_name").val(customer.name);
+                    $("#edit_tel").val(customer.tel);
+                    $("#edit_address").val(customer.address);
+                    $("#edit_email").val(customer.email);
+                    $("#edit_level").val(customer.level);
+                    $("#edit_userid").val(customer.userid);
+                    $("#edit_type").val(customer.type);
+                    $select.val(customer.companyid);
+
+                    $("#editModal").modal({
+                        show: true,
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                } else {
+                    alert(data.message);
+                }
+            }).fail(function () {
+                alert("服务器请求异常...")
+            });
+
+        });
+
+        $("#editBtn").click(function(){
+            $("#editForm").submit();
+        })
     });
+
 </script>
 </body>
 </html>
