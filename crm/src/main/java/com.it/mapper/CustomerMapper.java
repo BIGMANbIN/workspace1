@@ -2,6 +2,7 @@ package com.it.mapper;
 
 
 import com.it.pojo.Customer;
+import com.it.pojo.Sales;
 
 import java.util.List;
 import java.util.Map;
@@ -28,4 +29,5 @@ public interface CustomerMapper {
 
     void update(Customer cus);
 
+    List<Customer> findAll(Integer userId);
 }

@@ -1,4 +1,77 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.it.mapper.SalesMapper">
+
+    <cache/>
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_sales(name, price, custid, custname, progress, lasttime, userid, realname, successtime)
+        VALUES (#{name},#{price},#{custid},#{custname},#{progress},#{lasttime},#{userid},#{realname},#{successtime})
+    </insert>
+
+    <update id="update">
+        UPDATE t_sales SET lasttime=#{lasttime},successtime=#{successtime},progress=#{progress} where id=#{id}
+    </update>
+
+    <delete id="del">
+        DELETE FROM t_sales WHERE id=#{id}
+    </delete>
+
+    <select id="findByParam" resultType="Sales">
+        SELECT * FROM t_sales
+        <where>
+            <if test="userid != null and userid != ''">
+                (userid = #{userid} or (userid='' or userid is null))
+            </if>
+            <if test="name != null and name != ''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="progress != null and progress != ''">
+                and progress = #{progress}
+            </if>
+            <if test="startdate != null and startdate != ''">
+                and date(lasttime) >= #{startdate}
+            </if>
+            <if test="enddate != null and enddate != ''">
+                and date(lasttime) &lt;= #{enddate}
+            </if>
+        </where>
+        order by id desc
+        limit ${start},${length}
+    </select>
+
+    <select id="findByCount" resultType="Long">
+        SELECT count(*) FROM t_sales
+    </select>
+
+    <select id="countByParam" resultType="Long">
+        SELECT count(*) FROM t_sales
+        <where>
+            <if test="userid != null and userid != ''">
+                (userid=#{userid} or (userid='' or userid is null))
+            </if>
+            <if test="name != null and name != ''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="progress != null and progress != ''">
+                and progress = #{progress}
+            </if>
+            <if test="startdate != null and startdate != ''">
+                and date(lasttime) >= #{startdate}
+            </if>
+            <if test="enddate != null and enddate != ''">
+                and date(lasttime) &lt;= #{enddate}
+            </if>
+        </where>
+    </select>
+
+    <select id="findById" resultType="com.it.pojo.Sales">
+        SELECT * FROM t_sales WHERE id = #{id}
+    </select>
+
+    <select id="findByCustId" resultType="com.it.pojo.Sales">
+        SELECT * FROM t_sales WHERE custid=#{custId} order by id desc
+    </select>
+
+
 </mapper>

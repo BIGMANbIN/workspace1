@@ -22,7 +22,7 @@ public class Test {
     }*/
 
     //二维码
-    public static void main(String[] args) throws WriterException, IOException {
+   /* public static void main(String[] args) throws WriterException, IOException {
 
         String mecard = "MECARD:N:牛牛;ORG:山西国瑞投资有限公司;TEL:15188499999;EMAIL:410522431;ADR:山西太原;;";
 
@@ -35,6 +35,6 @@ public class Test {
         MatrixToImageWriter.writeToStream(bitMatrix,"png",new FileOutputStream("E:/qr.png"));
 
 
-    }
+    }*/
 
 }

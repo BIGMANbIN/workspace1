@@ -4,15 +4,11 @@ package com.it.service;
 import com.google.common.collect.Maps;
 import com.it.mapper.CustomerMapper;
 import com.it.pojo.Customer;
+import com.it.pojo.Sales;
 import com.it.util.ShiroUtil;
 import com.it.util.Strings;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -87,11 +83,6 @@ public class CustomerService {
         customerMapper.add(customer);
     }
 
-    public List<Customer> findCompanyByKeyword(String keyword) {
-        return customerMapper.findCompanyLikeName(keyword);
-    }
-
-
     /**
      * 根据ID删除客户信息
      *
@@ -125,7 +116,6 @@ public class CustomerService {
     public Customer findCustomerById(Integer id) {
         return customerMapper.findById(id);
     }
-
 
     /**
      * 根据公司ID 查找所有客户
@@ -213,4 +203,17 @@ public class CustomerService {
 
         return mecard.toString();
     }
+
+    /**
+     * 获取所有的客户
+     * @return
+     */
+    public List<Customer> findAllCustomer() {
+        Integer userid = null;
+        if(ShiroUtil.isEmployee()) {
+            userid = ShiroUtil.getCurrentUserID();
+        }
+        return customerMapper.findAll(userid);
+    }
+
 }

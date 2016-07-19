@@ -22,7 +22,7 @@ public class ShiroUtil {
         return getCurrentUser().getRealname();
     }
 
-    public static boolean isEmpty() {
+    public static boolean isAdmin() {
         return getCurrentUser().getRole().getRolename().equals("管理员");
     }
 
@@ -33,4 +33,5 @@ public class ShiroUtil {
     public static boolean isManager() {
         return getCurrentUser().getRole().getRolename().equals("经理");
     }
+
 }

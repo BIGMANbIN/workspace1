@@ -12,8 +12,12 @@ import com.it.dto.DataTablesResult;
 import com.it.exception.ForbiddenException;
 import com.it.exception.NotFoundException;
 import com.it.pojo.Customer;
+import com.it.pojo.Sales;
+import com.it.pojo.Task;
 import com.it.pojo.User;
 import com.it.service.CustomerService;
+import com.it.service.SalesService;
+import com.it.service.TaskService;
 import com.it.service.UserService;
 import com.it.util.ShiroUtil;
 import org.springframework.stereotype.Controller;
@@ -39,6 +43,10 @@ public class CustomerController {
     private CustomerService customerService;
     @Inject
     private UserService userService;
+    @Inject
+    private SalesService salesService;
+    @Inject
+    private TaskService taskService;
 
 
     @RequestMapping(method = RequestMethod.GET)
@@ -75,12 +83,13 @@ public class CustomerController {
 
     }
 
+
     /**
-     * 显示所有公司信息
+     * 查找所有公司信息
      *
      * @return
      */
-    @RequestMapping(value = "company.json", method = RequestMethod.GET)
+    @RequestMapping(value = "companys.json", method = RequestMethod.GET)
     @ResponseBody
     public List<Customer> showAllCompanyJson() {
         return customerService.findAllCompany();
@@ -136,9 +145,12 @@ public class CustomerController {
         }
 
         //加载所有员工
-
         List<User> userList = userService.findAllUser();
         model.addAttribute("userList", userList);
+
+        //加载客户对听的销售机会列表
+        List<Sales> salesList = salesService.findSalesByCustId(id);
+        model.addAttribute("salesList",salesList);
 
         return "customer/customerview";
     }
@@ -213,6 +225,13 @@ public class CustomerController {
         return "redirect:/customer";
     }
 
+    /**
+     * 将客户信息生成二维码
+     * @param id
+     * @param response
+     * @throws WriterException
+     * @throws IOException
+     */
     @RequestMapping(value = "/qrcode/{id:\\d+}.png", method = RequestMethod.GET)
     public void makeQrCoe(@PathVariable Integer id, HttpServletResponse response) throws WriterException, IOException {
         String mecard = customerService.makeMeCard(id);
@@ -226,5 +245,19 @@ public class CustomerController {
         MatrixToImageWriter.writeToStream(bitMatrix, "png", outputStream);
         outputStream.flush();
         outputStream.close();
+    }
+
+    /**
+     * 给关联客户添加待办事项
+     * @param task
+     * @param hour
+     * @param min
+     * @return
+     */
+    @RequestMapping(value = "/task/new",method = RequestMethod.POST)
+    @ResponseBody
+    public String newTask(Task task,String hour,String min){
+        taskService.saveTask(task, hour, min);
+        return "redirect:/customer"+task.getCustid();
     }
 }

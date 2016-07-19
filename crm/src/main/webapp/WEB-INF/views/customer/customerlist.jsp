@@ -188,7 +188,7 @@ desired effect
                     </div>
                     <div class="form-group" id="editCompanyList">
                         <label>所属公司</label>
-                        <select name="companyid"></select>
+                        <select name="companyid" class="form-control"></select>
                     </div>
                 </form>
             </div>
@@ -313,7 +313,7 @@ desired effect
             $("#newForm")[0].reset();
 
             //使用ajax加载最新的公司列表
-            $.get("/customer/company.json").done(function (data) {
+            $.get("/customer/companys.json").done(function (data) {
                 var $select = $("#companyList select");
                 $select.html("");//清空
                 $select.append("<option></option>");
@@ -329,7 +329,7 @@ desired effect
                 alert("服务器异常")
             });
 
-            $("#companyList").show();
+
             $("#newModal").modal({
                 show: true,
                 dropback: 'static',

@@ -20,11 +20,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Theme style -->
     <link rel="stylesheet" href="/static/dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="/static/dist/css/skins/skin-blue.min.css">
+    <link rel="stylesheet" href="/static/plugins/colorpicker/bootstrap-colorpicker.css">
+    <link rel="stylesheet" href="/static/plugins/datepicker/datepicker3.css">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
-    <%@include file="../include/mainHeader.jsp"%>
+    <%@include file="../include/mainHeader.jsp" %>
     <jsp:include page="../include/leftSide.jsp">
         <jsp:param name="menu" value="customer"/>
     </jsp:include>
@@ -79,7 +81,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <c:if test="${not empty customer.companyid}">
                             <tr>
                                 <td>所属公司</td>
-                                <td colspan="5"><a href="/customer/${customer.companyid}">${customer.companyname}</a></td>
+                                <td colspan="5"><a href="/customer/${customer.companyid}">${customer.companyname}</a>
+                                </td>
                             </tr>
                         </c:if>
                         <c:if test="${not empty customerList}">
@@ -102,6 +105,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="box-header with-border">
                             <h3 class="box-title"><i class="fa fa-list"></i> 项目列表</h3>
                         </div>
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><i class="fa fa-calendar-check-o"></i> 代办事项</h3>
+                            <div class="box-tools">
+                                <button class="btn btn-default btn-xs" id="newTask"><i class="fa fa-plus"></i></button>
+                            </div>
+                        </div>
                         <div class="box-body">
                             <h5>暂无项目</h5>
                         </div>
@@ -113,7 +122,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="box-header with-border">
                             <h3 class="box-title"><i class="fa fa-qrcode"></i> 电子名片</h3>
                             <div class="box-tools">
-                                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"><i class="fa fa-plus"></i></button>
+                                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"><i
+                                        class="fa fa-plus"></i></button>
                             </div>
                         </div>
                         <div class="box-body" style="text-align: center">
@@ -144,7 +154,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">转交客户</h4>
             </div>
             <div class="modal-body">
@@ -168,6 +179,92 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<div class="modal fade" id="newTaskModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">新增待办事项</h4>
+            </div>
+            <div class="modal-body">
+                <form id="newTaskForm" action="/customer/task/new" method="post">
+                    <input type="hidden" name="custid" value="${customer.id}">
+                    <div class="form-group">
+                        <label>待办内容</label>
+                        <input type="text" class="form-control" name="title" id="task_title">
+                    </div>
+                    <div class="form-group">
+                        <label>开始日期</label>
+                        <input type="text" class="form-control" name="start" id="start_time">
+                    </div>
+                    <div class="form-group">
+                        <label>结束日期</label>
+                        <input type="text" class="form-control" name="end" id="end_time">
+                    </div>
+                    <div class="form-group">
+                        <label>提醒时间</label>
+                        <div>
+                            <select name="hour" style="width: 100px">
+                                <option value=""></option>
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                            </select>
+                            :
+                            <select name="min" style="width: 100px">
+                                <option value=""></option>
+                                <option value="0">0</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="25">25</option>
+                                <option value="30">30</option>
+                                <option value="35">35</option>
+                                <option value="40">40</option>
+                                <option value="45">45</option>
+                                <option value="50">50</option>
+                                <option value="55">55</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>显示颜色</label>
+                        <input type="text" class="form-control" name="color" id="color" value="#61a5e8">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="saveTaskBtn">保存</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 2.2.3 -->
@@ -176,32 +273,56 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="/static/bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/static/dist/js/app.min.js"></script>
+<script src="/static/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="/static/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+<script src="/static/plugins/colorpicker/bootstrap-colorpicker.js"></script>
 <script>
-    $(function(){
+    $(function () {
 
         //公开客户
-        $("#openCust").click(function(){
-            if(confirm("确定要公开客户吗")) {
+        $("#openCust").click(function () {
+            if (confirm("确定要公开客户吗")) {
                 var id = ${customer.id};
-                window.location.href = "/customer/open/"+id;
+                window.location.href = "/customer/open/" + id;
             }
         });
 
         //转移客户
-        $("#moveCust").click(function(){
+        $("#moveCust").click(function () {
 
             $("#moveModal").modal({
-                show:true,
-                backdrop:'static',
-                keyboard:false
+                show: true,
+                backdrop: 'static',
+                keyboard: false
             });
 
         });
 
-        $("#moveBtn").click(function(){
+        $("#moveBtn").click(function () {
             $("#moveForm").submit();
         });
 
+        $("#color").colorpicker({
+            color:'#61a5e8'
+        });
+        $("#start_time,#end_time").datepicker({
+            format:'yyyy-mm-dd',
+            autoclose:true,
+            language:'zh-CN',
+            todayHighlight:true
+        });
+
+        //新建任务
+        $("#newTask").click(function(){
+            $("#newTaskModal").modal({
+                show:"true",
+                backdrop:'static'
+            });
+        });
+
+        $("#saveTaskBtn").click(function(){
+           $("#newTaskForm").submit();
+        });
 
     });
 </script>
