@@ -209,11 +209,11 @@ public class CustomerService {
      * @return
      */
     public List<Customer> findAllCustomer() {
-        Integer userid = null;
+        Integer userId = null;
         if(ShiroUtil.isEmployee()) {
-            userid = ShiroUtil.getCurrentUserID();
+            userId = ShiroUtil.getCurrentUserID();
         }
-        return customerMapper.findAll(userid);
+        return customerMapper.findAll(userId);
     }
 
 }

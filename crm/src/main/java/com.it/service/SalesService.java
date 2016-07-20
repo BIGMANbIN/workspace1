@@ -139,7 +139,7 @@ public class SalesService {
         //修改最后跟进时间
         sales.setLasttime(DateTime.now().toString("yyyy-MM-dd"));
         //判断进度是否是『完成交易』
-        if ("完成交易".equals(progress)) {
+        if ("交易完成".equals(progress)) {
             sales.setSuccesstime(DateTime.now().toString("yyyy-MM-dd"));
         }
         salesMapper.update(sales);

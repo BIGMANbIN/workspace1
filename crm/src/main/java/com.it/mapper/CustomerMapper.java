@@ -3,6 +3,7 @@ package com.it.mapper;
 
 import com.it.pojo.Customer;
 import com.it.pojo.Sales;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -29,5 +30,7 @@ public interface CustomerMapper {
 
     void update(Customer cus);
 
-    List<Customer> findAll(Integer userId);
+    List<Customer> findAll(@Param("userId") Integer userId);
+
+    Long findNewCustomerCount(@Param("start") String start,@Param("end") String end);
 }
