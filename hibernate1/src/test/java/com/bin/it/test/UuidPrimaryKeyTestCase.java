@@ -3,6 +3,8 @@ package com.bin.it.test;
 
 import com.bin.it.pojo.Task;
 import com.bin.it.util.HibernateUtil;
+import org.hibernate.LockMode;
+import org.hibernate.LockOptions;
 import org.hibernate.Session;
 import org.hibernate.Cache;
 import org.junit.Test;
@@ -17,7 +19,7 @@ public class UuidPrimaryKeyTestCase {
         session.beginTransaction();
 
         Task task = new Task();
-        task.setTitle("task-3");
+        task.setTitle("task-4");
 
         session.save(task);
 
@@ -51,6 +53,46 @@ public class UuidPrimaryKeyTestCase {
         session2.getTransaction().commit();
     }
 
+    @Test
+    public void testVersion() throws InterruptedException {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
 
+        Task task = (Task) session.get(Task.class,"297e08ff562bd8e701562bd8e90d0000");
+        task.setTitle("xx-101");
+
+        Thread.sleep(3000);
+
+
+        session.getTransaction().commit();
+    }
+
+    @Test
+    public void  testUpdate() throws InterruptedException {
+        final Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+
+        final Task task = (Task) session.get(Task.class,"297e08ff562bd8e701562bd8e90d0000");
+        task.setTitle("task-5");
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Session session1 = HibernateUtil.getSession();
+                session1.beginTransaction();
+
+                Task task1 = (Task) session1.get(Task.class,"297e08ff562bd8e701562bd8e90d0000", LockOptions.UPGRADE);
+                task1.setTitle("Task-7");
+
+                session1.getTransaction().commit();
+            }
+        });
+        thread.start();
+
+        Thread.sleep(3000);
+
+        session.getTransaction().commit();
+
+    }
 
 }
