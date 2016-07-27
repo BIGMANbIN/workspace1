@@ -15,7 +15,7 @@ public class HibernateLifeTestCase {
         session.beginTransaction();
 
         User user = new User();
-        user.setUsername("李斯");
+        user.setUsername("wangwang");
         user.setPassword("123456");
         user.setEmail("123@456han.com");
 

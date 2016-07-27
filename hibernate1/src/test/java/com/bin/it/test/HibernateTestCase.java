@@ -31,9 +31,9 @@ public class HibernateTestCase {
         session.beginTransaction();
 
         User user = new User();
-        user.setUsername("nimei");
+        user.setUsername("linlin");
         user.setPassword("123456");
-        user.setEmail("nimei@163.com");
+        user.setEmail("linlin@163.com");
 
         session.save(user);
 

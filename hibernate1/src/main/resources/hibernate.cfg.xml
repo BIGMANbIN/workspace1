@@ -25,8 +25,21 @@
         <property name="show_sql">true</property>
         <property name="current_session_context_class">thread</property>
 
+        <!--二级缓存-->
+        <property name="cache.use_second_level_cache">true</property>
+        <property name="cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+
         <!--添加映射文件-->
-        <mapping resource="hbm/hibernate.hbm.xml"/>
+        <mapping class="com.bin.it.pojo.User"/>
+        <mapping class="com.bin.it.pojo.Dept"/>
+        <mapping class="com.bin.it.pojo.Employee"/>
+        <mapping class="com.bin.it.pojo.Teacher"/>
+        <mapping class="com.bin.it.pojo.Student"/>
+        <mapping class="com.bin.it.pojo.Topic"/>
+        <mapping class="com.bin.it.pojo.TopicContent"/>
+        <mapping class="com.bin.it.pojo.Person"/>
+        <mapping class="com.bin.it.pojo.Card"/>
+        <mapping class="com.bin.it.pojo.Task"/>
 
     </session-factory>
 </hibernate-configuration>
