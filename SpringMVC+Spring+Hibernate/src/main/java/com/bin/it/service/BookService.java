@@ -7,6 +7,8 @@ import com.bin.it.dao.PublisherDao;
 import com.bin.it.pojo.Book;
 import com.bin.it.pojo.BookType;
 import com.bin.it.pojo.Publisher;
+import com.bin.it.util.Page;
+import com.bin.it.util.SearchParam;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
@@ -46,5 +48,9 @@ public class BookService {
 
     public Book findById(Integer id) {
         return bookDao.findById(id);
+    }
+
+    public Page<Book> findByPage(Integer pageNo,List<SearchParam> searchParamList) {
+        return bookDao.findPageNo(pageNo,5,searchParamList);
     }
 }

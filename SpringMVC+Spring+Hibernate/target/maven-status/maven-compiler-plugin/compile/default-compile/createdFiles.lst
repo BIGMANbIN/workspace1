@@ -1,9 +1,13 @@
 com\bin\it\service\BookService.class
 com\bin\it\pojo\Book.class
+com\bin\it\util\Page.class
+com\bin\it\dao\BaseDao.class
 com\bin\it\controller\BookController.class
 com\bin\it\pojo\Publisher.class
+com\bin\it\util\SearchParam.class
+com\bin\it\util\Strings.class
 com\bin\it\dao\PublisherDao.class
 com\bin\it\dao\BookTypeDao.class
 com\bin\it\dao\BookDao.class
-com\bin\it\pojo\BookType.class
 com\bin\it\Test.class
+com\bin\it\pojo\BookType.class

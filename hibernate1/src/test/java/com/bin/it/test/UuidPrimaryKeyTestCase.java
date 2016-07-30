@@ -82,7 +82,7 @@ public class UuidPrimaryKeyTestCase {
                 session1.beginTransaction();
 
                 Task task1 = (Task) session1.get(Task.class,"297e08ff562bd8e701562bd8e90d0000", LockOptions.UPGRADE);
-                task1.setTitle("Task-7");
+                task1.setTitle("Task-9");
 
                 session1.getTransaction().commit();
             }
